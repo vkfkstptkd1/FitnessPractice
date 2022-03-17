@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "181071132728",
+    "project_id": "rn-fitness-app",
+    "storage_bucket": "rn-fitness-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181071132728:android:1692aa9a1b0f7dba4fcecd",
+        "android_client_info": {
+          "package_name": "com.fitnesspractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181071132728-hj2egc75cnmvo92cc65k6c49dkbabb1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitnesspractice",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "181071132728-2pfgafpe9g75t4quimahi63agq1rtbmt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpVUIQk_18egeIMLM1jokxAmRDLxn5kLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181071132728-2pfgafpe9g75t4quimahi63agq1rtbmt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
