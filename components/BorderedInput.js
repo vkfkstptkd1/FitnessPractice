@@ -1,11 +1,12 @@
 import React from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 
-function BorderedInput({hasMarginBottom, ...rest}){
+function BorderedInput({hasMarginBottom, ...rest},ref){
     return <TextInput 
                 style={[styles.input, hasMarginBottom && styles.margin]}
                 placeholderTextColor="#bdbdbd"
-                {...rest}      
+                {...rest}
+                ref={ref} //인풋에 포커스       
           />;
 }
 
@@ -24,4 +25,8 @@ const styles= StyleSheet.create({
     },
 });
 
-export default BorderedInput;
+export default React.forwardRef(BorderedInput); 
+//함수 컴포넌트의 두번째 파라미터에서 ref를 받아와 사용 가능.
+//특정 컴포넌트 내부에 있는 또 다른 컴포넌트에 ref를 설정하려면 forwardRef()를 사용해야함.
+//추후에 다른 컴포넌트를 사용할 때 이 함수 컴포넌트를 사용하고 ref를 달면 이 함수컴포넌트 내부의 textinput에 ref가 달리게 됨.
+//constBorderedInput= React.forwardRef(({hasMarginBottom,...rest}, ref)=> {return (...)}); 이렇게 사용해도 됨.

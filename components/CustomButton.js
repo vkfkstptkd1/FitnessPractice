@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, View, Pressable, Text, Platform} from 'react-native';
 
 function CustomButton({onPress, title, hasMarginButtom,theme}){
-    
+    //hasmarginbottom : 하단 여백 지정
+    //onpress: 버튼 상태 (눌렸는지 아닌지 지정)
     const isPrimary = theme === 'primary'; //primary button (기본)
 
     return(
@@ -15,7 +16,7 @@ function CustomButton({onPress, title, hasMarginButtom,theme}){
                     Platform.OS === 'ios' && pressed && {opacity: 0.5},
                 ]}
             android_ripple={{
-                color: isPrimary ? '#ffffff' : 'bdbdbd',
+                color: isPrimary ? '#ffffff' : '#000000',
             }}>
             <Text style={[
                 styles.text,
