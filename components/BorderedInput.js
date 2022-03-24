@@ -26,6 +26,7 @@ const styles= StyleSheet.create({
 });
 
 export default React.forwardRef(BorderedInput); 
+//키보드 리턴 처리
 //함수 컴포넌트의 두번째 파라미터에서 ref를 받아와 사용 가능.
 //특정 컴포넌트 내부에 있는 또 다른 컴포넌트에 ref를 설정하려면 forwardRef()를 사용해야함.
 //추후에 다른 컴포넌트를 사용할 때 이 함수 컴포넌트를 사용하고 ref를 달면 이 함수컴포넌트 내부의 textinput에 ref가 달리게 됨.

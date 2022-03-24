@@ -1,5 +1,6 @@
 import React, {useRef,useState} from "react";
 import {
+        Alert,
         Keyboard,
         KeyboardAvoidingView,
         Platform,
@@ -7,15 +8,20 @@ import {
         Text,
         View,} from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import BorderedInput from "../components/BorderedInput";
-import CustomButton from "../components/CustomButton";
+//import BorderedInput from "../components/BorderedInput";
+//import CustomButton from "../components/CustomButton";
+import {signIn,signUp} from "../lib/auth";
+
+import SignForm from "../components/SignForm";
+import SignButtons from "../components/SignButtons";
 
 function SignInScreen({navigation,route}) {
-    const {isSignUp} = route.params ?? {}; // 라우트는 이 값에 의해 화면전환 가능하게
+    const {isSignUp} = route.params || {}; // 라우트는 이 값에 의해 화면전환 가능하게
                     //화면에 파라미터가 지정되어 있지 않다면 route.params 값 = undefined
                     //undefined값에 객체 구조 분해 할당을 하려고 하면 에러 발생.
                     //만약 해당 값이 undefined라면 비어있는 객체에서 구조분해 할당을 해 에러가 발생하지 않도록 처리해준 것
-    const [form, setForm] =useState({ // 프로젝트의 큰 객체같은 느낌.
+    const [Loading,setLoading] = useState();
+    const [form, setForm] = useState({ // 프로젝트의 큰 객체같은 느낌.
         email: '',
         password: '',
         confirmPassword: '',
@@ -25,14 +31,46 @@ function SignInScreen({navigation,route}) {
         setForm({...form, [name]:value});//form객체에서 원하는 키를 반환
     };
 
-    const onSubmit = () => { //keyboard 사라지게
+    const onSubmit = async () => { //버튼 누른 경우
+        
+        //keyboard 사라지게
         Keyboard.dismiss();
-        console.log(form);
+
+        //firebase 회원 인증 부분
+        //issign값에 따라 signup 또는 signin함수 호출
+        //이 함수들은 promise를 반환. -> async/await문법 사용해 작업이 끝날 때까지 기다렸다가 특정 작업 수행가능
+        //처음 호출될 때는 loading상태 true, 작업이 끝나면 loading상태를 false
+        
+        const {email, password, confirmPassword} = form;
+
+        //오류 예외 처리
+        if (isSignUp && password !== confirmPassword){
+            Alert.alert('실패', '비밀번호가 일치하지 않습니다. ');
+            return;
+        }
+
+        const info = {email, password};
+        
+        setLoading(true); //작업 시작 호출
+        try {
+            const {user} = isSignUp ? await signUp(info) : await signIn(info);
+            console.log(user);
+        } catch (err) {
+            const messages= {
+                'auth/email-already-in-use':'이미 가입된 이메일 입니다.',
+                'auth/wrong-password':'잘못된 비밀번호 입니다.',
+                'auth/user-not-found':'존재하지 않는 계정입니다.',
+                'auth/invalid-email':'유효하지 않은 이메일 주소입니다.',
+            };
+            const msg = messages[err.code] || `${isSignUp ? '가입' : '로그인'} 오류`;
+            Alert.alert('오류',msg);
+            console.log(err);
+        } finally {
+            setLoading(false); //작업 종료 호출
+        }
     };
 
-    //키보드 리턴을 위한 함수 설정.
-    const passwordRef = useRef();
-    const confirmPasswordRef = useRef();
+
     
     return(
         <KeyboardAvoidingView 
@@ -41,78 +79,16 @@ function SignInScreen({navigation,route}) {
             <SafeAreaView style={styles.fullscreen}>
                 <Text style={styles.text}>For You</Text>
                 <View style={styles.form}>
-                    <BorderedInput placeholder="아이디" 
-                                   hasMarginBottom
-                                   value={form.email}
-                                   onChangeText={createChangeTextHandler('email')}
-                                   autoCapitalize="none"        //첫번째 자동대문자
-                                   autoCorrect={false}          //자동 수정 비활서오하
-                                   autoCompleteType="email"     //이메일 자동 완성
-                                   keyboardType="email-address" //이메일 전용 키보드 활성화
-                                   
-                                   //input keyboard return 처리
-                                   returnkeyType="next"
-                                   onSubmitEditing={() => passwordRef.current.focus()}
-                   />
-                    <BorderedInput placeholder ="비밀번호"
-                                   hasMarginBottom={isSignUp}
-                                   value={form.password}
-                                   onChangeText={createChangeTextHandler('password')}
-                                   secureTextEntry      //비밀번호 입력 시 화면에서 숨겨짐
-
-                                   //
-                                   ref={passwordRef}
-                                   returnkeyType={isSignUp ? 'next' : 'done'}
-                                   onSubmitEditing={() => {
-                                       if (isSignUp) {
-                                           confirmPasswordRef.current.focus();
-                                         } else {
-                                            onSubmit();
-                                         }
-                                       }
-                                   }
+                    <SignForm 
+                        isSignUp={isSignUp}
+                        onSubmit={onSubmit}
+                        form={form}
+                        createChangeTextHandler={createChangeTextHandler}
                     />
-                    {isSignUp && (
-                    <BorderedInput placeholder ="비밀번호 확인" 
-                                   value={form.confirmPassword}
-                                   onChangeText={createChangeTextHandler('confirmPassword')}
-                                   secureTextEntry
-
-                                   //
-                                   ref={confirmPasswordRef}
-                                   returnkeyType="done"
-                                   onSubmitEditing={onSubmit}
-                    />)
-                    }
-                    <View style={styles.buttons}>
-                        {isSignUp ? ( // 회원가입 페이지인가 ?
-                            <>
-                            <CustomButton title="회원가입" 
-                                        hasMarginButtom
-                                        onPress={onSubmit}
-                                        />
-                            <CustomButton title="로그인" theme="secondary" 
-                                            onPress={()=>{
-                                            navigation.goBack();
-                                            }}
-                            />
-                            </>
-                            ) : (
-                            <>
-                            <CustomButton title="로그인" 
-                                          hasMarginButtom
-                                          onPress={onSubmit}
-                            />
-                            <CustomButton title="회원가입"  //회원가입 누를 경우 issignup true로 바꿔서 회원가입 화면으로 전환 (버튼 순서 바꿈 + input 추가)
-                                            theme="secondary"
-                                            onPress={()=> {
-                                            navigation.push('SignIn',{isSignUp:true}); //SignIn이 머지
-                                            }}
-                            />
-                            </>
-                            )
-                        }
-                    </View>
+                    <SignButtons isSignUp={isSignUp}
+                                 onSubmit={onSubmit}
+                                 loading={Loading}
+                    />
                 </View>
             </SafeAreaView>
         </KeyboardAvoidingView>
@@ -139,9 +115,6 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal:16,
     },
-    buttons: {
-        marginTop: 64,
-    }
 });
 
 export default SignInScreen;
