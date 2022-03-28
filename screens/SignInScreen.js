@@ -1,4 +1,4 @@
-import React, {useRef,useState} from "react";
+import React, {useState} from "react";
 import {
         Alert,
         Keyboard,
@@ -14,6 +14,7 @@ import {signIn,signUp} from "../lib/auth";
 
 import SignForm from "../components/SignForm";
 import SignButtons from "../components/SignButtons";
+import {getUser} from '../lib/users';
 
 function SignInScreen({navigation,route}) {
     const {isSignUp} = route.params || {}; // 라우트는 이 값에 의해 화면전환 가능하게
@@ -46,15 +47,21 @@ function SignInScreen({navigation,route}) {
         //오류 예외 처리
         if (isSignUp && password !== confirmPassword){
             Alert.alert('실패', '비밀번호가 일치하지 않습니다. ');
-            return;
+            console.log({password, confirmPassword});    
+        return;
         }
 
+        setLoading(true); //작업 시작 호출
         const info = {email, password};
         
-        setLoading(true); //작업 시작 호출
         try {
             const {user} = isSignUp ? await signUp(info) : await signIn(info);
-            console.log(user);
+                const profile = await getUser(user.uid);
+                if (!profile) {
+                    navigation.navigate('Welcome', {uid: user.uid});
+                } else {
+                    //구현예정
+                }
         } catch (err) {
             const messages= {
                 'auth/email-already-in-use':'이미 가입된 이메일 입니다.',
@@ -64,7 +71,6 @@ function SignInScreen({navigation,route}) {
             };
             const msg = messages[err.code] || `${isSignUp ? '가입' : '로그인'} 오류`;
             Alert.alert('오류',msg);
-            console.log(err);
         } finally {
             setLoading(false); //작업 종료 호출
         }
@@ -77,7 +83,7 @@ function SignInScreen({navigation,route}) {
           style={styles.KeyboardAvoidingView}
           behavior={Platform.select({ios: 'padding'})}>                  
             <SafeAreaView style={styles.fullscreen}>
-                <Text style={styles.text}>For You</Text>
+                <Text style={styles.text}>For U</Text>
                 <View style={styles.form}>
                     <SignForm 
                         isSignUp={isSignUp}
@@ -106,8 +112,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000',
     },
     text: {
-        fontSize: 32,
-        fontWeight: 'bold',
+        fontSize: 48,
+        //fontWeight: 'bold',
         color:'#bdbdbd',
     },
     form: {
