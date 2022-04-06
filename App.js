@@ -1,13 +1,16 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './screens/RootStack';
+import {UserContextProvider} from './contexts/UserContext';
 
-function App(){
+function App() {
   return (
-//    <googlefitapi/>
-    <NavigationContainer>
-      <RootStack/>
-    </NavigationContainer>
+    //    <googlefitapi/>ㅎㅇㅎㅇ
+    <UserContextProvider>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </UserContextProvider>
   );
 }
 
