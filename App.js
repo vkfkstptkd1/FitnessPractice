@@ -4,7 +4,7 @@ import RootStack from './screens/RootStack';
 
 function App() {
   return (
-    //    <googlefitapi/>////.//l;l
+    //    <googlefitapi/>ㅎㅇㅎㅇ
     <NavigationContainer>
       <RootStack />
     </NavigationContainer>
