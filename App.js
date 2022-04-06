@@ -1,12 +1,12 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './screens/RootStack';
 
-function App(){
+function App() {
   return (
-//    <googlefitapi/>
+    //    <googlefitapi/>////.//l;l
     <NavigationContainer>
-      <RootStack/>
+      <RootStack />
     </NavigationContainer>
   );
 }
