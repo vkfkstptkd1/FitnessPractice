@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "181071132728",
-    "project_id": "rn-fitness-app",
-    "storage_bucket": "rn-fitness-app.appspot.com"
+    "project_number": "925506164013",
+    "project_id": "fitnesspractice",
+    "storage_bucket": "fitnesspractice.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:181071132728:android:1692aa9a1b0f7dba4fcecd",
+        "mobilesdk_app_id": "1:925506164013:android:1542b8bd69e79217f5afa4",
         "android_client_info": {
           "package_name": "com.fitnesspractice"
         }
       },
       "oauth_client": [
         {
-          "client_id": "181071132728-hj2egc75cnmvo92cc65k6c49dkbabb1j.apps.googleusercontent.com",
+          "client_id": "925506164013-qlcsapcaeopa59a56l4jod8hfm59m1oh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.fitnesspractice",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "181071132728-2pfgafpe9g75t4quimahi63agq1rtbmt.apps.googleusercontent.com",
+          "client_id": "925506164013-88phb6lvbdbgi9qs8qhgk8lua0h032g9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCpVUIQk_18egeIMLM1jokxAmRDLxn5kLA"
+          "current_key": "AIzaSyC9g4FcavGiF72s_p6ey3m1r1kaFta8dCA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "181071132728-2pfgafpe9g75t4quimahi63agq1rtbmt.apps.googleusercontent.com",
+              "client_id": "925506164013-88phb6lvbdbgi9qs8qhgk8lua0h032g9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
