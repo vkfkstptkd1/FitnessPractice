@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
-import {PermissionsAndroid} from 'react-native';
+import {PermissionsAndroid, Platform} from 'react-native';
 import Mapstyle from './Mapstyle';
 import WriteButton from '../components/WriteButton';
 
 async function requestPermission() {
   try {
+    console.log(Platform.OS);
     return await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     );
@@ -64,7 +65,7 @@ function GraphScreen() {
           title="나의 위치"
         />
       </MapView>
-      <WriteButton />
+      <WriteButton text={'Track'} icon={'add'} />
     </View>
   );
 }

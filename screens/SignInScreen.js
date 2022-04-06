@@ -5,8 +5,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  Text,
+  Image,
   View,
+  Text,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 //import BorderedInput from "../components/BorderedInput";
@@ -89,6 +90,7 @@ function SignInScreen({navigation, route}) {
       style={styles.KeyboardAvoidingView}
       behavior={Platform.select({ios: 'padding'})}>
       <SafeAreaView style={styles.fullscreen}>
+        <Image style={styles.image} source={require('../assets/Logo_.png')} />
         <Text style={styles.text}>For U</Text>
         <View style={styles.form}>
           <SignForm
@@ -118,15 +120,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#000000',
   },
-  text: {
-    fontSize: 48,
-    //fontWeight: 'bold',
-    color: '#bdbdbd',
-  },
   form: {
-    marginTop: 64,
     width: '100%',
     paddingHorizontal: 16,
+  },
+  image: {
+    marginBottom: 3,
+    resizeMode: 'contain',
+  },
+  text: {
+    fontSize: 48,
+    color: 'white',
+    marginBottom: 16,
   },
 });
 

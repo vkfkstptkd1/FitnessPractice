@@ -52,7 +52,11 @@ function RootStack() {
             component={WriteScreen}
             options={{headerTitle: '운동일지'}}
           />
-          <Stack.Screen name="Track" component={TrackScreen} />
+          <Stack.Screen
+            name="Track"
+            component={TrackScreen}
+            options={{headerTitle: ' 운동 경로'}}
+          />
         </>
       ) : (
         <>

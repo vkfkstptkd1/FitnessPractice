@@ -64,7 +64,7 @@ function GraphScreen({route}) {
         </View>
       </View>
       <View style={styles.rateform}>
-        <Text style={[styles.text, styles.titletext]}>친구들의 건간정보</Text>
+        <Text style={[styles.text, styles.titletext]}>친구들의 건강정보</Text>
         <TouchableOpacity
           style={[styles.rec, {width: wd - 32, height: 80}]}></TouchableOpacity>
         <TouchableOpacity

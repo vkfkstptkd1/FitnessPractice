@@ -3,10 +3,11 @@ import React from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-function WriteButton() {
+function WriteButton(props) {
   const navigation = useNavigation();
   const onPress = () => {
-    navigation.navigate('Track');
+    console.log(props.text);
+    navigation.navigate(props.text);
   };
   return (
     <View style={[styles.wrapper]}>
@@ -21,7 +22,7 @@ function WriteButton() {
           color: 'white',
         }}
         onPress={onPress}>
-        <Icon name="add" style={styles.icon} size={30} />
+        <Icon name={props.icon} style={styles.icon} size={30} />
       </Pressable>
     </View>
   );
