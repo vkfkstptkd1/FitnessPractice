@@ -80,9 +80,9 @@ function SignInScreen({navigation, route}) {
       console.log(e);
       const msg = messages[e.code] || `${isSignUp ? '가입' : '로그인'} 오류`;
       Alert.alert('오류', msg);
-    } finally {
+      
       setLoading(false); //작업 종료 호출
-    }
+    } 
   };
 
   return (
@@ -92,7 +92,7 @@ function SignInScreen({navigation, route}) {
       <SafeAreaView style={styles.fullscreen}>
         <Image style={styles.image} source={require('../assets/Logo_.png')} />
         <Text style={styles.text}>For U</Text>
-        <View style={styles.form}>
+        <View style={styles.form1}>
           <SignForm
             isSignUp={isSignUp}
             onSubmit={onSubmit}
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#000000',
   },
-  form: {
+  form1: {
     width: '100%',
     paddingHorizontal: 16,
   },

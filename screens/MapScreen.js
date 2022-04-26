@@ -30,7 +30,7 @@ function GraphScreen() {
           },
           {
             enableHighAccuracy: true,
-            timeout: 3600,
+            timeout: 36000,
             maximumAge: 3600,
           },
         );
