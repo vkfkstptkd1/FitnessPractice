@@ -1,19 +1,28 @@
 import React, {useEffect} from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View,Image} from 'react-native';
 import HealthScreen from './HealthScreen';
 import MapScreen from './MapScreen';
 import TimeLineScreen from './TimeLineScreen'
 import FindFriendScreen from './FindFriendScreen';
 import AlarmScreen from './AlarmScreen';
-
+import {useUserContext} from '../contexts/UserContext';
+import CameraButton from '../components/CameraButton';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function MainTab() {
+  const {user} = useUserContext();
   return (
+    <>
     <View style={styles.block}>
+      {/*{user.photoURL && (
+        <Image
+          source={{uri: user.photoURL}}
+          style={{width:128, height:128, marginTop:16}}
+          resizeMode="cover"/>
+      )}*/}
       <Tab.Navigator labeled={false} barStyle={{backgroundColor: '#4A4A4A'}}>
       <Tab.Screen
           name="TimeLineScreen"
@@ -62,6 +71,8 @@ function MainTab() {
         />
       </Tab.Navigator>
     </View>
+    <CameraButton/>
+    </>
   );
 }
 
