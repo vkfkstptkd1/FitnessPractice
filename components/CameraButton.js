@@ -1,8 +1,10 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React,{useState} from 'react';
 import { ActionSheetIOS,View, Pressable, StyleSheet, Platform} from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 import UploadModeModal from './UploadModeModal';
 
 const TABBAR_HEIGHT = 49;
@@ -14,17 +16,17 @@ const imagePickerOption={
     includeBase64: Platform.OS === 'android',
 };
 
-function CameraButton(){
+function CameraButton(props){
     const [modalVisible,setModalVisible]=useState(false);
-    const insets=useSafeAreaInsets(); // 하단 여백 크기 알게 함.
-
-    const bottom = TABBAR_HEIGHT;
+ // const insets=useSafeAreaInsets(); // 하단 여백 크기 알게 함.
+    const navigation=useNavigation();//Uploadscreen에 res라우트 파라미터 전달.
+    //const bottom = TABBAR_HEIGHT;
 
     const onPickImage =(res) => {
-        if (res.didCance || !res) {
+        if (res.didCancel || !res) {
             return;
         }
-        console.log(res);
+        navigation.push(props.text,{res});
     };
 
     const onLaunchCamera = () => {
@@ -62,14 +64,19 @@ function CameraButton(){
     
     return(
     <>
-    <View style={[styles.wrapper,{bottom}]}>
+    <View style={[styles.wrapper]}>
         <Pressable
+            style={({pressed}) => [
+                styles.button,
+                Platform.OS === 'ios' && {
+                  opacity: pressed ? 0.6 : 1,
+                },
+              ]}
             android_ripple={{
-                color: '#ffffff',
-            }}
-            style={styles.circle}
+                color: 'white',
+              }}
             onPress={onPress}>
-            <Icon name="camera-alt" color="white" size={24}/>
+            <Icon name= {props.icon} style={styles.icon} size={24}/>
         </Pressable>
     </View>
     <UploadModeModal
@@ -84,38 +91,30 @@ function CameraButton(){
 
 const styles= StyleSheet.create({
     wrapper: {
-        zIndex: 5,
-        borderRadius:27,
-        height: 54,
-        width: 54,
         position: 'absolute',
-        left: '50%',
-        transform:[
-        {
-            translateX: -27,
-        },
-        ],
-        ...Platform.select({
-        ios: {
-            shadowColor: '#ffffff',
-            shadowOffset:{width:0,height:4},
-            shadowOpacity: 0.3,
-            shadowRadius: 4,
-        },
-        andorid:{
-            elevation:5,
-            overflow:'hidden',
-        },
-    }),
+        bottom: 16,
+        right: 16,
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        shadowColor: '#4d4d4d',
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 5,
+        overflow: Platform.select({android: 'hidden'}),
     },
-    circle: {
-        backgroundColor: "#bdbdbd",
-        borderRadius: 27,
-        height: 54,
-        width: 54,
-        alignItems: 'center',
+    button: {
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        backgroundColor: '#4A4A4A',
         justifyContent: 'center',
-    },
+        alignItems: 'center',
+      },
+      icon: {
+        color: 'white',
+      },
 });
 
 export default CameraButton;

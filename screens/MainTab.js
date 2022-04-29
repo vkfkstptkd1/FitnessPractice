@@ -71,7 +71,6 @@ function MainTab() {
         />
       </Tab.Navigator>
     </View>
-    <CameraButton/>
     </>
   );
 }

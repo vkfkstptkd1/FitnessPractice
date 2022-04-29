@@ -3,8 +3,8 @@ import MapView, {Marker} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import {View} from 'react-native';
 import Mapstyle from './Mapstyle';
-import WriteButton from '../components/WriteButton';
-
+//import WriteButton from '../components/WriteButton';
+import CameraButton from '../components/CameraButton';
 function TrackScreen() {
   const [locations, setLocations] = useState([]);
   let watchId;
@@ -61,7 +61,7 @@ function TrackScreen() {
           ))}
         </MapView>
       )}
-      <WriteButton text={'Write'} icon={'check'} />
+      <CameraButton text={"Upload"} icon={'check'} />
     </View>
   );
 }

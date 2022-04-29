@@ -5,10 +5,10 @@ import {getUser} from '../lib/users';
 import {useUserContext} from '../contexts/UserContext';
 import MainTab from './MainTab';
 import GraphScreen from './GraphScreen';
-import WriteScreen from './WriteScreen';
 import TrackScreen from './TrackScreen';
 import SignInScreen from './SignInScreen';
 import WelcomeScreen from './WelcomeScreen';
+import UploadScreen from './UploadScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,12 +45,12 @@ function RootStack() {
           <Stack.Screen
             name="Graph"
             component={GraphScreen}
-            options={{headerTitle: '상세정보'}}
+            options={{headerTitle: '상세 정보'}}
           />
           <Stack.Screen
-            name="Write"
-            component={WriteScreen}
-            options={{headerTitle: '운동일지'}}
+            name="Upload"
+            component={UploadScreen}
+            options={{headerTitle: '운동 일지'}}
           />
           <Stack.Screen
             name="Track"
