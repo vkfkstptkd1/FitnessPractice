@@ -7,8 +7,14 @@ import {
     Animated,
     Keyboard,
     useWindowDimensions,
+    Platform,
 } from 'react-native';
 import IconRightButton from "../components/IconRightButton";
+
+import storage from '@react-native-firebase/storage';
+import {useUserContext} from '../contexts/UserContext';
+import {v4} from 'uuid';
+import {createPost} from '../lib/posts';
 
 
 function UploadScreen(){
@@ -20,9 +26,26 @@ function UploadScreen(){
     const [title,setTitle]=useState('');
     const [description,setDescription]=useState('');
     const navigation = useNavigation();
-    const onSubmit = useCallback(()=> {
+
+    //firebase에 정보 전송
+    const {user} = useUserContext();
+    const onSubmit = useCallback( async()=> {
         //post 작성 로직 구현
-    }, []);
+        navigation.pop();
+        const asset=res.assets[0];
+        const extension =asset.fileName.split('.').pop();
+        const reference = storage().ref(`/photo/${user.id}/${v4()}.${extension}`);
+        if(Platform.OS === 'android'){
+            await reference.putString(asset.base64, 'base64',{
+                contentType: asset.type,
+            });
+        } else {
+            await reference.putFile(asset.uri);
+        }
+        const photoURL= await reference.getDownloadURL();
+        await createPost({description,title,photoURL,user});
+        //post목록 새로고침
+    }, [res,user,title,description,navigation]);
 
     useEffect(() => {
         const didShow = Keyboard.addListener('keyboardDidShow', () =>

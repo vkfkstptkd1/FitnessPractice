@@ -17,12 +17,12 @@ function MainTab() {
   return (
     <>
     <View style={styles.block}>
-      {/*{user.photoURL && (
+      {user.photoURL && (
         <Image
           source={{uri: user.photoURL}}
           style={{width:128, height:128, marginTop:16}}
           resizeMode="cover"/>
-      )}*/}
+      )}
       <Tab.Navigator labeled={false} barStyle={{backgroundColor: '#4A4A4A'}}>
       <Tab.Screen
           name="TimeLineScreen"

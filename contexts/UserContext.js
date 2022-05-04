@@ -17,7 +17,7 @@ export function UserContextProvider({children}) {
 export function useUserContext() {
   const userContext = useContext(UserContext);
   if (!userContext) {
-    throw new Error('UserContext.Provider is not');
+    throw new Error('UserContext.Provider is not found');
   }
   return userContext;
 }

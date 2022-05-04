@@ -31,8 +31,8 @@ function SetupProfile(){
 
         if (response) {
             const asset =response.assets[0]
-            const extesnsion =asset.fileName.split('.').pop(); // 확장자 추출
-            const reference = storage().ref(`/profile/${uid}.${extesnsion}`);// 업로드할 경로 지정
+            const extension =asset.fileName.split('.').pop(); // 확장자 추출
+            const reference = storage().ref(`/profile/${uid}.${extension}`);// 업로드할 경로 지정
 
             if (Platform.OS ==='android'){
                 await reference.putString(asset.base64, 'base64',{
