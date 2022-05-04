@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {StyleSheet, View,Image} from 'react-native';
 import HealthScreen from './HealthScreen';
 import MapScreen from './MapScreen';
-import TimeLineScreen from './TimeLineScreen'
+import FeedScreen from './FeedScreen'
 import FindFriendScreen from './FindFriendScreen';
 import AlarmScreen from './AlarmScreen';
 import {useUserContext} from '../contexts/UserContext';
@@ -25,8 +25,8 @@ function MainTab() {
       )}
       <Tab.Navigator labeled={false} barStyle={{backgroundColor: '#4A4A4A'}}>
       <Tab.Screen
-          name="TimeLineScreen"
-          component={TimeLineScreen}
+          name="FeedScreen"
+          component={FeedScreen}
           options={{
             tabBarIcon: ({color}) => (
               <Icon name="wallpaper" size={24} color={color} />
