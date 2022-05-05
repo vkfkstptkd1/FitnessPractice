@@ -45,7 +45,7 @@ function RootStack() {
           <Stack.Screen
             name="Graph"
             component={GraphScreen}
-            options={{headerTitle: '상세 정보'}}
+            options={{headerTitle: '상세정보'}}
           />
           <Stack.Screen
             name="Upload"

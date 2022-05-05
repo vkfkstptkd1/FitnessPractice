@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 30,
+    marginTop: 20,
   },
   titleform: {flexDirection: 'row', alignItems: 'center'},
   circle: {
@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
   },
   text: {
     width: 60,
-    height: 16,
     color: 'white',
   },
 });

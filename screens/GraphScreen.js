@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   data: {
-    fontSize: 55,
+    fontSize: 46,
     marginLeft: 13,
   },
   graphform: {
