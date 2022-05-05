@@ -24,7 +24,7 @@ function MainTab() {
       )}
       <Tab.Navigator labeled={false} barStyle={{backgroundColor: '#4A4A4A'}}>
         <Tab.Screen
-          name="HealthScreen"
+          name="Health"
           component={HealthScreen}
           options={{
             tabBarIcon: ({color}) => (
@@ -33,7 +33,7 @@ function MainTab() {
           }}
         />
         <Tab.Screen
-          name="FeedScreen"
+          name="Feed"
           component={FeedScreen}
           options={{
             tabBarIcon: ({color}) => (
@@ -42,7 +42,7 @@ function MainTab() {
           }}
         />
         <Tab.Screen
-          name="FindFriendScreen"
+          name="Find"
           component={FindFriendScreen}
           options={{
             tabBarIcon: ({color}) => (
@@ -52,7 +52,7 @@ function MainTab() {
         />
 
         <Tab.Screen
-          name="MapScreen"
+          name="Map"
           component={MapScreen}
           options={{
             tabBarIcon: ({color}) => (
@@ -61,7 +61,7 @@ function MainTab() {
           }}
         />
         <Tab.Screen
-          name="AlarmScreen"
+          name="Alarm"
           component={AlarmScreen}
           options={{
             tabBarIcon: ({color}) => (
