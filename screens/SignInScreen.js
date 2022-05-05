@@ -80,9 +80,9 @@ function SignInScreen({navigation, route}) {
       console.log(e);
       const msg = messages[e.code] || `${isSignUp ? '가입' : '로그인'} 오류`;
       Alert.alert('오류', msg);
-      
+
       setLoading(false); //작업 종료 호출
-    } 
+    }
   };
 
   return (

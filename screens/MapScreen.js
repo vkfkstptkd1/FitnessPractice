@@ -8,7 +8,6 @@ import WriteButton from '../components/WriteButton';
 
 async function requestPermission() {
   try {
-    console.log(Platform.OS);
     return await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     );
@@ -22,7 +21,6 @@ function GraphScreen() {
       if (result === 'granted') {
         Geolocation.getCurrentPosition(
           pos => {
-            console.log(pos.coords.latitude);
             setLocation(pos.coords);
           },
           error => {

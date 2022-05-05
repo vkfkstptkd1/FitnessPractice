@@ -1,4 +1,4 @@
-/*import React, {useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -52,7 +52,7 @@ function GraphScreen() {
         {children}
       </View>
       <TextInput
-        placeholder="이 사진에 대한 설명을 기록하세요.."
+        placeholder="운동 내용을 기록해보세요"
         style={styles.bodyinput}
         multiline
         textAlignVertical="top"
@@ -100,4 +100,3 @@ const styles = StyleSheet.create({
 });
 
 export default GraphScreen;
-*/

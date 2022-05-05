@@ -5,41 +5,36 @@ import {LinearProgress} from 'react-native-elements';
 
 function HealthInfo(props) {
   const [progress, setProgress] = React.useState(0);
-
   const navigation = useNavigation();
   const userinfo = {
     name: '민주홍',
     title: '',
     color: '',
-    achieve: 0,
+    achieve: props.achieve,
     goal: 0,
-    averge: 0,
   };
 
-  userinfo.achieve = 125;
-  userinfo.goal = 180;
-  userinfo.averge = 174;
-
   switch (props.title) {
-    case 'screen':
-      userinfo.title = '스크린 타임';
+    case 'dist':
+      userinfo.title = '이동 거리';
       userinfo.color = '#167AEF';
+      userinfo.goal = 500;
       break;
     case 'step':
       userinfo.title = '일일 걸음수';
       userinfo.color = '#84F10B';
+      userinfo.goal = 3000;
       break;
     case 'cal':
       userinfo.title = '칼로리 소모량';
       userinfo.color = '#D60720';
+      userinfo.goal = 1500;
       break;
-    case 'sleep':
-      userinfo.title = '수면 시간';
+    case 'duration':
+      userinfo.title = '오늘 산책한 시간';
       userinfo.color = '#9028EB';
+      userinfo.goal = 60;
       break;
-    case 'stress':
-      userinfo.title = '스트레스 수치';
-      userinfo.color = '#F1E234';
   }
 
   const wd = userinfo.achieve / userinfo.goal;

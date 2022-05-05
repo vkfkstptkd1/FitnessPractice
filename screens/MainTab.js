@@ -1,30 +1,38 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {StyleSheet, View,Image} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import HealthScreen from './HealthScreen';
 import MapScreen from './MapScreen';
-import FeedScreen from './FeedScreen'
+import FeedScreen from './FeedScreen';
 import FindFriendScreen from './FindFriendScreen';
 import AlarmScreen from './AlarmScreen';
 import {useUserContext} from '../contexts/UserContext';
-import CameraButton from '../components/CameraButton';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function MainTab() {
   const {user} = useUserContext();
   return (
-    <>
     <View style={styles.block}>
       {user.photoURL && (
         <Image
           source={{uri: user.photoURL}}
-          style={{width:128, height:128, marginTop:16}}
-          resizeMode="cover"/>
+          style={{width: 128, height: 128, marginTop: 16}}
+          resizeMode="cover"
+        />
       )}
       <Tab.Navigator labeled={false} barStyle={{backgroundColor: '#4A4A4A'}}>
-      <Tab.Screen
+        <Tab.Screen
+          name="HealthScreen"
+          component={HealthScreen}
+          options={{
+            tabBarIcon: ({color}) => (
+              <Icon name="home" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="FeedScreen"
           component={FeedScreen}
           options={{
@@ -42,15 +50,7 @@ function MainTab() {
             ),
           }}
         />
-         <Tab.Screen
-          name="HealthScreen"
-          component={HealthScreen}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Icon name="home" size={24} color={color} />
-            ),
-          }}
-        />
+
         <Tab.Screen
           name="MapScreen"
           component={MapScreen}
@@ -71,7 +71,6 @@ function MainTab() {
         />
       </Tab.Navigator>
     </View>
-    </>
   );
 }
 

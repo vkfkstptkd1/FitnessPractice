@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,8 +8,24 @@ import {
 } from 'react-native';
 import HealthInfo from '../components/HealthInfo';
 import RecommendForm from '../components/RecommendForm';
+import {fetchData} from '../lib/fit';
 
 function HealthScreen() {
+  const [info, setInfo] = useState();
+  useEffect(() => {
+    fetchData().then(res => {
+      setInfo(res);
+    });
+  }, []);
+
+  if (!info) {
+    return (
+      <View>
+        <Text>splash screen</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.form1}>
@@ -21,11 +37,32 @@ function HealthScreen() {
       </View>
       <View>
         <Text style={[styles.text, styles.maintitle]}> 건강 정보</Text>
-        <HealthInfo style={styles.healthInfo} title={'screen'} />
-        <HealthInfo style={styles.healthInfo} title={'step'} />
-        <HealthInfo style={styles.healthInfo} title={'cal'} />
-        <HealthInfo style={styles.healthInfo} title={'sleep'} />
-        <HealthInfo style={styles.healthInfo} title={'stress'} />
+        {info ? (
+          <>
+            <HealthInfo
+              style={styles.healthInfo}
+              title={'step'}
+              achieve={info.step}
+            />
+            <HealthInfo
+              style={styles.healthInfo}
+              title={'cal'}
+              achieve={info.kcal}
+            />
+            <HealthInfo
+              style={styles.healthInfo}
+              title={'dist'}
+              achieve={info.dist}
+            />
+            <HealthInfo
+              style={styles.healthInfo}
+              title={'duration'}
+              achieve={info.Htime}
+            />
+          </>
+        ) : (
+          <></>
+        )}
       </View>
       <View>
         <Text style={[styles.text, styles.maintitle]}> 운동중인 친구</Text>
