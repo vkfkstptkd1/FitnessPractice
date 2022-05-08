@@ -12,6 +12,7 @@ function HealthInfo(props) {
     color: '',
     achieve: props.achieve,
     goal: 0,
+    format: '',
   };
 
   switch (props.title) {
@@ -19,21 +20,26 @@ function HealthInfo(props) {
       userinfo.title = '이동 거리';
       userinfo.color = '#167AEF';
       userinfo.goal = 500;
+      userinfo.format = '미터';
+
       break;
     case 'step':
       userinfo.title = '일일 걸음수';
       userinfo.color = '#84F10B';
       userinfo.goal = 3000;
+      userinfo.format = '걸음';
       break;
     case 'cal':
       userinfo.title = '칼로리 소모량';
       userinfo.color = '#D60720';
       userinfo.goal = 1500;
+      userinfo.format = 'kcal';
       break;
     case 'duration':
       userinfo.title = '오늘 산책한 시간';
       userinfo.color = '#9028EB';
       userinfo.goal = 60;
+      userinfo.format = '분';
       break;
   }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,10 +9,51 @@ import {
 import {Dimensions} from 'react-native';
 import Healthgraph from '../components/Healthgraph';
 import Buttongroup from '../components/Buttongroup';
+import {
+  fetchWeekdist,
+  fetchWeekduration,
+  fetchWeekkcal,
+  fetchWeekStep,
+} from '../lib/fit';
 
 const wd = Dimensions.get('window').width;
 
 function GraphScreen({route}) {
+  const [weekinfo, setWeekinfo] = useState();
+  let max = 0;
+
+  useEffect(() => {
+    switch (route.params.userinfo.format) {
+      case '걸음':
+        max = 12000;
+        fetchWeekStep().then(res => {
+          setWeekinfo(res);
+        });
+        break;
+      case '미터':
+        max = 200;
+        fetchWeekdist().then(res => {
+          setWeekinfo(res);
+        });
+        break;
+      case 'kcal':
+        max = 100;
+        fetchWeekkcal().then(res => {
+          setWeekinfo(res);
+        });
+        break;
+      case '분':
+        max = 200;
+        fetchWeekduration().then(res => {
+          setWeekinfo(res);
+        });
+        break;
+    }
+  }, []);
+
+  if (!weekinfo) {
+    return <View style={styles.container}></View>;
+  }
   return (
     <ScrollView style={styles.container}>
       <Text style={[styles.maintitle, styles.text]}>
@@ -31,7 +72,7 @@ function GraphScreen({route}) {
                 styles.text,
                 {fontSize: 20, marginBottom: 10, marginLeft: 5},
               ]}>
-              걸음
+              {route.params.userinfo.format}
             </Text>
           </View>
         </View>
@@ -47,7 +88,7 @@ function GraphScreen({route}) {
                   styles.text,
                   {fontSize: 20, marginBottom: 10, marginLeft: 5},
                 ]}>
-                걸음
+                {route.params.userinfo.format}
               </Text>
             </View>
           </View>
@@ -55,7 +96,7 @@ function GraphScreen({route}) {
       </View>
       <View style={styles.graphform}>
         <Text style={[styles.text, styles.titletext]}>주간 통계</Text>
-        <Healthgraph />
+        <Healthgraph weekinfo={weekinfo} max={max} />
       </View>
       <View style={styles.statsform}>
         <Text style={[styles.text, styles.titletext]}>유저간 상위 통계</Text>

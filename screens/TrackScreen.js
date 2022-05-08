@@ -57,11 +57,12 @@ function TrackScreen() {
                 latitude: location.latitude,
                 longitude: location.longitude,
               }}
+              image={require('../assets/dot.png')}
             />
           ))}
         </MapView>
       )}
-      <CameraButton text={"Upload"} icon={'check'} />
+      <CameraButton text={'Upload'} icon={'check'} locations={locations} />
     </View>
   );
 }
