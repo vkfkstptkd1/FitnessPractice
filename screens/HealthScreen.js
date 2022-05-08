@@ -16,13 +16,6 @@ function HealthScreen() {
   const {user, setUser} = useUserContext();
   const [info, setInfo] = useState();
 
-  const user_ = {
-    id: user.id,
-    displayName: user.displayName,
-    photoURL: user.photoURL,
-  };
-  console.log(user_);
-
   useEffect(() => {
     fetchData().then(res => {
       setInfo(res);

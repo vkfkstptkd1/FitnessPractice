@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, View, Pressable, Text, Platform} from 'react-native';
 
-function CustomButton({onPress, title, hasMarginButtom,theme}){
+function CustomButton({onPress, title, hasMarginButtom,hasMarginLeft,theme}){
     //hasmarginbottom : 하단 여백 지정
     //onpress: 버튼 상태 (눌렸는지 아닌지 지정)
     const isPrimary = theme === 'primary'; //primary button (기본)
 
     return(
-        <View style={[styles.block,hasMarginButtom && styles.margin]}>
+        <View style={[styles.block,hasMarginButtom && styles.margin,hasMarginLeft && styles.margin2]}>
             <Pressable
                 onPress={onPress}
                 style={({pressed}) => [
@@ -66,6 +66,9 @@ const styles = StyleSheet.create({
     },
     margin: {
         marginBottom: 8,
+    },
+    margin2: {
+        marginLeft: -8,
     },
 });
 

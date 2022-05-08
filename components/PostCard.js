@@ -1,6 +1,7 @@
 import React,{useMemo} from "react";
 import {View, StyleSheet,Text,Image,Pressable} from 'react-native';
-
+import CustomButton from "./CustomButton";
+import FollowingButtons from "./FollowingButtons";
 function PostCard({user,title,photoURL,description,createdAt,id}){
     const date =useMemo(
         ()=> (createdAt ? new Date(createdAt._seconds * 1000) : newDate()),
@@ -8,6 +9,8 @@ function PostCard({user,title,photoURL,description,createdAt,id}){
     );
     const onOpenProfile=()=>{
         //사용자 프로필 화면 열기
+    }
+    const onSubmit = async () => {
     }
 
     return(
@@ -48,6 +51,7 @@ const styles= StyleSheet.create({
     block:{
         paddingTop: 16,
         paddingBottom:16,
+        borderColor:'#bdbdbd',
     },
     avatar: {
         width: 32,
@@ -68,6 +72,7 @@ const styles= StyleSheet.create({
         alignItems:'center',
     },
     displayName:{
+        color:'white',
         lineHeight:16,
         fontSize:16,
         marginLeft:8,
@@ -80,14 +85,17 @@ const styles= StyleSheet.create({
         marginBottom:16,
     },
     title:{
+        color:'white',
         fontSize:24,
         lineHeight:24,
         marginBottom: 8,
     },
     description:{
+        color:'white',
         fontSize:16,
         lineHeight:24,
         marginBottom: 8,
+        borderColor:"#bdbdbd"
     },
     date: {
         color: '#757575',

@@ -15,16 +15,18 @@ function MainTab() {
   const {user} = useUserContext();
   return (
     <View style={styles.block}>
-      {user.photoURL && (
+      {/*user.photoURL && (
         <Image
           source={{uri: user.photoURL}}
           style={{width: 128, height: 128, marginTop: 16}}
           resizeMode="cover"
         />
-      )}
-      <Tab.Navigator labeled={false} barStyle={{backgroundColor: '#4A4A4A'}}>
+      )*/}
+      <Tab.Navigator labeled={true} 
+                     barStyle={{backgroundColor: '#4A4A4A'}}
+                     initialRouteName="Home">
         <Tab.Screen
-          name="Health"
+          name="Home"
           component={HealthScreen}
           options={{
             tabBarIcon: ({color}) => (
@@ -42,21 +44,20 @@ function MainTab() {
           }}
         />
         <Tab.Screen
-          name="Find"
-          component={FindFriendScreen}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Icon name="person-search" size={24} color={color} />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Map"
+          name="Post"
           component={MapScreen}
           options={{
             tabBarIcon: ({color}) => (
               <Icon name="place" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={FindFriendScreen}
+          options={{
+            tabBarIcon: ({color}) => (
+              <Icon name="person-search" size={24} color={color} />
             ),
           }}
         />

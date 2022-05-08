@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet } from 'react-native';
+import { View,ActivityIndicator, FlatList, RefreshControl, StyleSheet } from 'react-native';
 import PostCard from '../components/PostCard';
 import { getPosts,PAGE_SIZE,getOlderPosts,getNewerPosts } from '../lib/posts';
 
@@ -52,7 +52,7 @@ function FeedScreen() {
                 onEndReachedThreshold={0.75}
                 ListFooterComponent={
                     !noMorePost && (
-                        <ActivityIndicator style={styles.spinner} size={32} color='#6200ee'/>
+                        <ActivityIndicator style={styles.spinner} size={32} color='#bdbdbd'/>
                     )
                 }
                 refreshControl={
@@ -78,9 +78,10 @@ const renderItem = ({item}) =>(
 const styles = StyleSheet.create({
     container: {
         paddingBottom:48,
+        backgroundColor: 'rgba(48,47,47,1)',
     },
     spinner:{
-        height: 64,
+        //height: 64,
     },
 });
 
