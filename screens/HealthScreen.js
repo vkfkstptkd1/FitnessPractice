@@ -27,6 +27,7 @@ function HealthScreen() {
       };
       setUser(user_);
       createUser(user_);
+      console.log(user_);
     });
   }, []);
 
