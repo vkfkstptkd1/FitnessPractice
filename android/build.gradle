@@ -7,6 +7,10 @@ buildscript {
         compileSdkVersion = 30
         targetSdkVersion = 30
         ndkVersion = "21.4.7075529"
+        
+        //구글핏 오류 해결을 위해 추가
+        authVersion = "19.0.0"
+        fitnessVersion = "20.0.0"
     }
     repositories {
         google()
