@@ -2,20 +2,11 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {BarChart} from 'react-native-gifted-charts';
 
-function Healthgraph() {
+function Healthgraph(route) {
   const barData = [
     {
-      value: 40,
-      label: 'Jan',
-      spacing: 2,
-      labelWidth: 30,
-      labelTextStyle: {color: 'gray'},
-      frontColor: '#177AD5',
-    },
-    {value: 20, frontColor: '#ED6665'},
-    {
-      value: 50,
-      label: 'Feb',
+      value: route.weekinfo[0].value,
+      label: route.weekinfo[0].day,
       spacing: 2,
       labelWidth: 30,
       labelTextStyle: {color: 'gray'},
@@ -23,26 +14,17 @@ function Healthgraph() {
     },
     {value: 40, frontColor: '#ED6665'},
     {
-      value: 75,
-      label: 'Mar',
+      value: route.weekinfo[1].value,
+      label: route.weekinfo[1].day,
       spacing: 2,
-      labelWidth: 30,
+      labelWidth: 31,
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 25, frontColor: '#ED6665'},
+    {value: 40, frontColor: '#ED6665'},
     {
-      value: 30,
-      label: 'Apr',
-      spacing: 2,
-      labelWidth: 30,
-      labelTextStyle: {color: 'gray'},
-      frontColor: '#177AD5',
-    },
-    {value: 20, frontColor: '#ED6665'},
-    {
-      value: 60,
-      label: 'May',
+      value: route.weekinfo[2].value,
+      label: route.weekinfo[2].day,
       spacing: 2,
       labelWidth: 30,
       labelTextStyle: {color: 'gray'},
@@ -50,23 +32,41 @@ function Healthgraph() {
     },
     {value: 40, frontColor: '#ED6665'},
     {
-      value: 65,
-      label: 'Jun',
+      value: route.weekinfo[3].value,
+      label: route.weekinfo[3].day,
       spacing: 2,
       labelWidth: 30,
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 30, frontColor: '#ED6665'},
+    {value: 40, frontColor: '#ED6665'},
     {
-      value: 65,
-      label: 'Jun',
+      value: route.weekinfo[4].value,
+      label: route.weekinfo[4].day,
       spacing: 2,
       labelWidth: 30,
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 30, frontColor: '#ED6665'},
+    {value: 40, frontColor: '#ED6665'},
+    {
+      value: route.weekinfo[5].value,
+      label: route.weekinfo[5].day,
+      spacing: 2,
+      labelWidth: 30,
+      labelTextStyle: {color: 'gray'},
+      frontColor: '#177AD5',
+    },
+    {value: 40, frontColor: '#ED6665'},
+    {
+      value: route.weekinfo[6].value,
+      label: route.weekinfo[6].day,
+      spacing: 2,
+      labelWidth: 30,
+      labelTextStyle: {color: 'gray'},
+      frontColor: '#177AD5',
+    },
+    {value: 40, frontColor: '#ED6665'},
   ];
 
   function renderTitle() {
@@ -74,11 +74,11 @@ function Healthgraph() {
       <View style={styles.container}>
         <View style={styles.titleform}>
           <View style={[styles.circle, {backgroundColor: '#177AD5'}]} />
-          <Text style={styles.text}>목표량</Text>
+          <Text style={styles.text}>달성량</Text>
         </View>
         <View style={styles.titleform}>
           <View style={[styles.circle, {backgroundColor: '#ED6665'}]} />
-          <Text style={styles.text}>달성량</Text>
+          <Text style={styles.text}>목표랑</Text>
         </View>
       </View>
     );
@@ -98,7 +98,7 @@ function Healthgraph() {
         yAxisThickness={0}
         yAxisTextStyle={{color: 'gray'}}
         noOfSections={3}
-        maxValue={75}
+        maxValue={route.max}
         isAnimated
       />
     </View>

@@ -38,9 +38,10 @@ function GraphScreen() {
 
   if (!location) {
     return (
-      <View>
-        <Text>splash screen</Text>
-      </View>
+      <View
+        style={{
+          backgroundColor: 'black',
+        }}></View>
     );
   }
 

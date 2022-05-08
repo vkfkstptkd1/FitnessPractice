@@ -9,21 +9,36 @@ import {
 import HealthInfo from '../components/HealthInfo';
 import RecommendForm from '../components/RecommendForm';
 import {fetchData} from '../lib/fit';
+import {useUserContext} from '../contexts/UserContext';
+import {createUser} from '../lib/users';
 
 function HealthScreen() {
+  const {user, setUser} = useUserContext();
   const [info, setInfo] = useState();
+
+  const user_ = {
+    id: user.id,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+  };
+  console.log(user_);
+
   useEffect(() => {
     fetchData().then(res => {
       setInfo(res);
+      const user_ = {
+        id: user.id,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        userinfo: res,
+      };
+      setUser(user_);
+      createUser(user_);
     });
   }, []);
 
   if (!info) {
-    return (
-      <View>
-        <Text>splash screen</Text>
-      </View>
-    );
+    return <View></View>;
   }
 
   return (

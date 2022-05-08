@@ -23,6 +23,7 @@ const imagePickerOption = {
 };
 
 function CameraButton(props) {
+  console.log(props.locations);
   const [modalVisible, setModalVisible] = useState(false);
   // const insets=useSafeAreaInsets(); // 하단 여백 크기 알게 함.
   const navigation = useNavigation(); //Uploadscreen에 res라우트 파라미터 전달.
