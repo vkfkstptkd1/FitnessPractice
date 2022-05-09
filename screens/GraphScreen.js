@@ -50,7 +50,7 @@ function GraphScreen({route}) {
         break;
     }
   }, []);
-
+  console.log(weekinfo);
   if (!weekinfo) {
     return <View style={styles.container}></View>;
   }
