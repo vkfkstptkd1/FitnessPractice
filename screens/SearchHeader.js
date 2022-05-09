@@ -1,11 +1,15 @@
-import React from "react";
-import { StyleSheet,View,TextInput,useWindowDimensions, Pressable } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet,View,useWindowDimensions, Pressable,Keyboard } from "react-native";
 import BorderedInput from "../components/BorderedInput";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import SearchContext from "../contexts/SearchContext";
 
-function SearchHeader(keyword,onChangeText){
+function SearchHeader(users){
     const {width}=useWindowDimensions();
-
+    const {keyword,onChangeText}=useContext(SearchContext);
+    const onPress = () => {
+        Keyboard.dismiss()
+      }
     return (
     <View style={[styles.block,{width:width-32}]}>
         <View style={styles.input}>
@@ -13,9 +17,13 @@ function SearchHeader(keyword,onChangeText){
             placeholder="검색어를 입력하세요"
             value={keyword}
             onChangeText={onChangeText}
+            onSubmitEditing={onPress}
         />
         </View> 
-        <Pressable style={({pressed}) => [styles.button,pressed && {opacity:0.5}]}>
+        <Pressable 
+            style={({pressed}) => [styles.button,pressed && {opacity:0.5}]}
+            onPress={onPress}
+            >
             <Icon name="search" size={20} color="#bdbdbd"/>
         </Pressable>
     </View>
@@ -34,7 +42,7 @@ const styles=StyleSheet.create({
          //justifyContent:'center',
     },
     input:{
-        flex:1,
+        flex:1
     }
 })
 

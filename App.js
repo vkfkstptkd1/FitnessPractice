@@ -30,9 +30,13 @@ function App() {
   return (
     <UserContextProvider>
       <NavigationContainer>
+      <SearchContextProvider>
+
         <RootStack />
+        </SearchContextProvider>
       </NavigationContainer>
     </UserContextProvider>
+
   );
 }
 
