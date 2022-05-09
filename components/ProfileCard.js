@@ -28,7 +28,7 @@ function ProfileCard({displayName,photoURL,isFriend,onSubmit}){
                     <View style={styles.button}>
                     <CustomButton title="친구맺기"
                                   //hasMarginLeft
-                                  />
+                    />
                     </View>
             </View>
     );

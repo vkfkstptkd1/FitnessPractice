@@ -8,6 +8,7 @@ import FeedScreen from './FeedScreen';
 import FindFriendScreen from './FindFriendScreen';
 import AlarmScreen from './AlarmScreen';
 import {useUserContext} from '../contexts/UserContext';
+import SearchHeader from './SearchHeader';
 
 const Tab = createMaterialBottomTabNavigator();
 
