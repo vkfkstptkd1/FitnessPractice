@@ -79,6 +79,7 @@ function GraphScreen({route}) {
       photoURL: user.photoURL,
       userinfo: user.userinfo,
       achieveinfo: achieveinfo,
+      followingid: user.followingid,
     };
     //console.log(user_);
 

@@ -54,6 +54,14 @@ function SetupProfile() {
       id: uid,
       displayName,
       photoURL,
+      userinfo: {},
+      achieveinfo: {
+        step: 3000,
+        dist: 2500,
+        kcal: 150,
+        Htime: 30,
+      },
+      followingid: [],
     };
     createUser(user);
     setUser(user);
