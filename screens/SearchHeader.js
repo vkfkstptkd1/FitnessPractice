@@ -4,7 +4,7 @@ import BorderedInput from "../components/BorderedInput";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SearchContext from "../contexts/SearchContext";
 
-function SearchHeader(users){
+function SearchHeader(){
     const {width}=useWindowDimensions();
     const {keyword,onChangeText}=useContext(SearchContext);
     const onPress = () => {

@@ -1,7 +1,6 @@
 import React,{useMemo} from "react";
 import {View, StyleSheet,Text,Image,Pressable} from 'react-native';
 import CustomButton from "./CustomButton";
-import FollowingButtons from "./FollowingButtons";
 function PostCard({user,title,photoURL,description,createdAt,id}){
     const date =useMemo(
         ()=> (createdAt ? new Date(createdAt._seconds * 1000) : newDate()),

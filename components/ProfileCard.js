@@ -1,12 +1,12 @@
 import React from "react";
 import {View, StyleSheet,Text,Image,Pressable} from 'react-native';
-import FollowingButtons from "./FollowingButtons";
 import CustomButton from "./CustomButton";
 const onOpenProfile=()=>{
     //사용자 프로필 화면 열기
 }
 
 function ProfileCard({displayName,photoURL,isFriend,onSubmit}){
+    const buttontitle= isFriend ? '친구끊기' : '친구맺기';
     return(
             <View style={styles.container}>
                 <View style={styles.head}>
