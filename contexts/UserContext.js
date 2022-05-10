@@ -4,12 +4,18 @@ const UserContext = createContext(null);
 
 export function UserContextProvider({children}) {
   const [user, setUser] = useState(null); //user상태 관리
+  const [achieve, setAchive] = useState();
+  const [achieveinfo, setAchieveInfo] = useState({});
   return (
     <UserContext.Provider
       children={children}
       value={{
         user,
         setUser,
+        achieve,
+        setAchive,
+        achieveinfo,
+        setAchieveInfo,
       }}
     />
   );

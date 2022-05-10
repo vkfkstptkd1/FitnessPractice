@@ -15,45 +15,111 @@ import {
   fetchWeekkcal,
   fetchWeekStep,
 } from '../lib/fit';
+import Dialog from 'react-native-dialog';
+import {useUserContext} from '../contexts/UserContext';
+import {createUser} from '../lib/users';
 
 const wd = Dimensions.get('window').width;
 
 function GraphScreen({route}) {
+  const {achieveinfo, user, setUser, setAchieveInfo} = useUserContext();
   const [weekinfo, setWeekinfo] = useState();
+  const [visible, setVisible] = useState(false);
+  let text_ = 0;
+  switch (route.params.userinfo.format) {
+    case '걸음':
+      text_ = achieveinfo.step;
+      break;
+    case '미터':
+      text_ = achieveinfo.dist;
+      break;
+    case 'kcal':
+      text_ = achieveinfo.kcal;
+      break;
+    case '분':
+      text_ = achieveinfo.Htime;
+      break;
+  }
+
+  const [text, setText] = useState(text_);
+
   let max = 0;
+
+  const showDialog = () => {
+    setVisible(true);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+  const handleOk = () => {
+    setVisible(false);
+    switch (route.params.userinfo.format) {
+      case '걸음':
+        achieveinfo.step = parseInt(text);
+        setText(parseInt(text));
+        break;
+      case '미터':
+        achieveinfo.dist = parseInt(text);
+        setText(parseInt(text));
+        break;
+      case 'kcal':
+        achieveinfo.kcal = parseInt(text);
+        setText(parseInt(text));
+        break;
+      case '분':
+        achieveinfo.Htime = parseInt(text);
+        setText(parseInt(text));
+        break;
+    }
+    const user_ = {
+      id: user.id,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      userinfo: user.userinfo,
+      achieveinfo: achieveinfo,
+    };
+    //console.log(user_);
+
+    setUser(user_);
+    createUser(user_);
+  };
 
   useEffect(() => {
     switch (route.params.userinfo.format) {
       case '걸음':
-        max = 12000;
         fetchWeekStep().then(res => {
           setWeekinfo(res);
         });
         break;
       case '미터':
-        max = 200;
         fetchWeekdist().then(res => {
           setWeekinfo(res);
         });
         break;
       case 'kcal':
-        max = 100;
         fetchWeekkcal().then(res => {
           setWeekinfo(res);
         });
         break;
       case '분':
-        max = 200;
         fetchWeekduration().then(res => {
           setWeekinfo(res);
         });
         break;
     }
   }, []);
-  console.log(weekinfo);
+
   if (!weekinfo) {
     return <View style={styles.container}></View>;
   }
+  for (var i = 0; i < weekinfo.length; i++) {
+    if (max < weekinfo[i].value) {
+      max = weekinfo[i].value + 50;
+    }
+  }
+
   return (
     <ScrollView style={styles.container}>
       <Text style={[styles.maintitle, styles.text]}>
@@ -76,13 +142,11 @@ function GraphScreen({route}) {
             </Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={showDialog}>
           <View style={styles.rec}>
             <Text style={[styles.title, styles.text]}> 목표량 </Text>
             <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-              <Text style={[styles.text, styles.data]}>
-                {route.params.userinfo.goal}
-              </Text>
+              <Text style={[styles.text, styles.data]}>{text}</Text>
               <Text
                 style={[
                   styles.text,
@@ -96,7 +160,11 @@ function GraphScreen({route}) {
       </View>
       <View style={styles.graphform}>
         <Text style={[styles.text, styles.titletext]}>주간 통계</Text>
-        <Healthgraph weekinfo={weekinfo} max={max} />
+        <Healthgraph
+          weekinfo={weekinfo}
+          max={max}
+          format={route.params.userinfo.format}
+        />
       </View>
       <View style={styles.statsform}>
         <Text style={[styles.text, styles.titletext]}>유저간 상위 통계</Text>
@@ -112,6 +180,17 @@ function GraphScreen({route}) {
           style={[styles.rec, {width: wd - 32, height: 80}]}></TouchableOpacity>
         <TouchableOpacity
           style={[styles.rec, {width: wd - 32, height: 80}]}></TouchableOpacity>
+      </View>
+      <View>
+        <Dialog.Container visible={visible}>
+          <Dialog.Title>목표량을 입력하세요!</Dialog.Title>
+          <Dialog.Input
+            placeholder={route.params.userinfo.format}
+            keyboardType="number-pad"
+            onChangeText={text => setText(text)}></Dialog.Input>
+          <Dialog.Button label="Cancel" onPress={handleCancel} />
+          <Dialog.Button label="OK" onPress={handleOk} />
+        </Dialog.Container>
       </View>
     </ScrollView>
   );

@@ -13,7 +13,7 @@ import UploadScreen from './UploadScreen';
 const Stack = createNativeStackNavigator();
 
 function RootStack() {
-  const {user, setUser} = useUserContext();
+  const {user, setUser, achieveinfo, setAchieveInfo} = useUserContext();
 
   useEffect(() => {
     const unsubscribe = subscribeAuth(async currentUser => {
@@ -22,10 +22,14 @@ function RootStack() {
         return;
       }
       const profile = await getUser(currentUser.uid);
+
       if (!profile) {
         return;
       }
       setUser(profile);
+      console.log(profile.achieveinfo);
+      setAchieveInfo(profile.achieveinfo);
+      console.log('a', achieveinfo);
     });
   }, [setUser]);
 

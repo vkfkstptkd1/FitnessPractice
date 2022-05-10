@@ -1,8 +1,28 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {BarChart} from 'react-native-gifted-charts';
+import {useUserContext} from '../contexts/UserContext';
 
 function Healthgraph(route) {
+  const {achieveinfo} = useUserContext();
+  //console.log(achieveinfo);
+  let achieve = 0;
+
+  switch (route.format) {
+    case '걸음':
+      achieve = achieveinfo.step;
+      break;
+    case '미터':
+      achieve = achieveinfo.dist;
+      break;
+    case 'kcal':
+      achieve = achieveinfo.kcal;
+      break;
+    case '분':
+      achieve = achieveinfo.Htime;
+      break;
+  }
+
   const barData = [
     {
       value: route.weekinfo[0].value,
@@ -12,7 +32,7 @@ function Healthgraph(route) {
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 40, frontColor: '#ED6665'},
+    {value: achieve, frontColor: '#ED6665'},
     {
       value: route.weekinfo[1].value,
       label: route.weekinfo[1].day,
@@ -21,7 +41,7 @@ function Healthgraph(route) {
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 40, frontColor: '#ED6665'},
+    {value: achieve, frontColor: '#ED6665'},
     {
       value: route.weekinfo[2].value,
       label: route.weekinfo[2].day,
@@ -30,7 +50,7 @@ function Healthgraph(route) {
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 40, frontColor: '#ED6665'},
+    {value: achieve, frontColor: '#ED6665'},
     {
       value: route.weekinfo[3].value,
       label: route.weekinfo[3].day,
@@ -39,7 +59,7 @@ function Healthgraph(route) {
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 40, frontColor: '#ED6665'},
+    {value: achieve, frontColor: '#ED6665'},
     {
       value: route.weekinfo[4].value,
       label: route.weekinfo[4].day,
@@ -48,7 +68,7 @@ function Healthgraph(route) {
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 40, frontColor: '#ED6665'},
+    {value: achieve, frontColor: '#ED6665'},
     {
       value: route.weekinfo[5].value,
       label: route.weekinfo[5].day,
@@ -57,7 +77,7 @@ function Healthgraph(route) {
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 40, frontColor: '#ED6665'},
+    {value: achieve, frontColor: '#ED6665'},
     {
       value: route.weekinfo[6].value,
       label: route.weekinfo[6].day,
@@ -66,7 +86,7 @@ function Healthgraph(route) {
       labelTextStyle: {color: 'gray'},
       frontColor: '#177AD5',
     },
-    {value: 40, frontColor: '#ED6665'},
+    {value: achieve, frontColor: '#ED6665'},
   ];
 
   function renderTitle() {
@@ -107,6 +127,7 @@ function Healthgraph(route) {
 
 const styles = StyleSheet.create({
   maincontainer: {
+    flex: 1,
     backgroundColor: 'rgba(48,47,47,1)',
     paddingBottom: 40,
     borderRadius: 10,

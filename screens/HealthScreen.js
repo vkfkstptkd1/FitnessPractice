@@ -15,7 +15,7 @@ import {createUser} from '../lib/users';
 function HealthScreen() {
   const {user, setUser} = useUserContext();
   const [info, setInfo] = useState();
-
+  //console.log('a', user.achieveinfo);
   useEffect(() => {
     fetchData().then(res => {
       setInfo(res);
@@ -24,10 +24,12 @@ function HealthScreen() {
         displayName: user.displayName,
         photoURL: user.photoURL,
         userinfo: res,
+        achieveinfo: user.achieveinfo,
       };
+      //console.log('a', user_);
       setUser(user_);
       createUser(user_);
-      console.log(user_);
+      //console.log('b', user_);
     });
   }, []);
 
