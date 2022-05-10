@@ -16,9 +16,9 @@ function HealthScreen() {
   const {user, setUser} = useUserContext();
   const [info, setInfo] = useState();
 
-  const userinfoready= info!== null;
+  const userinfoready = info !== null;
   useEffect(() => {
-    if(userinfoready){
+    if (userinfoready) {
       SplashScreen.hide();
     }
     fetchData().then(res => {
@@ -29,12 +29,12 @@ function HealthScreen() {
         photoURL: user.photoURL,
         userinfo: res,
         achieveinfo: user.achieveinfo,
+        followingid: user.followingid,
       };
-      //console.log('a', user_);
+      console.log('a', user_);
       setUser(user_);
       createUser(user_);
     });
-  
   }, [userinfoready]);
 
   if (!info) {

@@ -2,42 +2,38 @@ import React, {useState, useEffect, useContext} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import ProfileCard from '../components/ProfileCard';
 import SearchContext from '../contexts/SearchContext';
-import { useUserContext } from '../contexts/UserContext';
+import {useUserContext} from '../contexts/UserContext';
+import {createUser} from '../lib/users';
 import {getUserProfile} from '../lib/users';
 import SearchHeader from './SearchHeader';
 
 function FindFriendScreen() {
-  const {user,setUser}=useUserContext();
+  const {user, setUser} = useUserContext();
   const [users, setUsers] = useState(null);
   const {keyword} = useContext(SearchContext);
-  
-  const onSubmit = {
-      
-  }
-  
+
   useEffect(() => {
     //컴포넌트가 처음 마운트될 때(화면을 보여주는 시점에서)
     //포스트 목록 조회 후 'posts' 상태에 담기
     getUserProfile().then(setUsers);
   }, []);
-  const filtered = 
-        keyword === ''
-        ? [] : users.filter((u) => 
-            [u.displayName].some((text)=>text.includes(keyword)),
-        );
+  const filtered =
+    keyword === ''
+      ? []
+      : users.filter(u => [u.displayName].some(text => text.includes(keyword)));
 
   return (
-      <View style={styles.container}>
-      <SearchHeader/>
+    <View style={styles.container}>
+      <SearchHeader />
       <View style={styles.list}>
-      <FlatList
-        data={filtered}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.list}
-      />
+        <FlatList
+          data={filtered}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          contentContainerStyle={styles.list}
+        />
       </View>
-      </View>
+    </View>
   );
 }
 const renderItem = ({item}) => (
@@ -45,7 +41,6 @@ const renderItem = ({item}) => (
     id={item.id}
     displayName={item.displayName}
     photoURL={item.photoURL}
-    onPress={onSubmit}
   />
 );
 const styles = StyleSheet.create({
@@ -54,16 +49,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(48,47,47,1)',
   },
   list: {
-    borderTopWidth:0.5,
-    borderTopColor:'#bdbdbd',
+    borderTopWidth: 0.5,
+    borderTopColor: '#bdbdbd',
   },
   input: {
     //borderColor: ,
     //borderWidth: 1,
-    flex:1,
+    flex: 1,
     paddingHorizontal: 16,
     height: 48,
-    borderRadius:5,
+    borderRadius: 5,
     backgroundColor: '#4A4A4A',
     color: '#bdbdbd',
   },
