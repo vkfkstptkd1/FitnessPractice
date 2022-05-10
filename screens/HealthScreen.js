@@ -11,12 +11,16 @@ import RecommendForm from '../components/RecommendForm';
 import {fetchData} from '../lib/fit';
 import {useUserContext} from '../contexts/UserContext';
 import {createUser} from '../lib/users';
-
+import SplashScreen from 'react-native-splash-screen';
 function HealthScreen() {
   const {user, setUser} = useUserContext();
   const [info, setInfo] = useState();
-  //console.log('a', user.achieveinfo);
+
+  const userinfoready= info!== null;
   useEffect(() => {
+    if(userinfoready){
+      SplashScreen.hide();
+    }
     fetchData().then(res => {
       setInfo(res);
       const user_ = {
@@ -29,9 +33,9 @@ function HealthScreen() {
       //console.log('a', user_);
       setUser(user_);
       createUser(user_);
-      //console.log('b', user_);
     });
-  }, []);
+  
+  }, [userinfoready]);
 
   if (!info) {
     return <View></View>;

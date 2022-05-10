@@ -1,7 +1,7 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import HealthScreen from './HealthScreen';
 import MapScreen from './MapScreen';
 import FeedScreen from './FeedScreen';
@@ -24,22 +24,13 @@ function MainTab() {
       )*/}
       <Tab.Navigator labeled={true} 
                      barStyle={{backgroundColor: '#4A4A4A'}}
-                     initialRouteName="Home">
+                     initialRouteName="home">
         <Tab.Screen
           name="Home"
           component={HealthScreen}
           options={{
             tabBarIcon: ({color}) => (
               <Icon name="home" size={24} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Feed"
-          component={FeedScreen}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Icon name="wallpaper" size={24} color={color} />
             ),
           }}
         />
@@ -62,6 +53,15 @@ function MainTab() {
           }}
         />
         <Tab.Screen
+          name="Feed"
+          component={FeedScreen}
+          options={{
+            tabBarIcon: ({color}) => (
+              <Icon name="wallpaper" size={24} color={color} />
+            ),
+          }}
+        />
+        {/*<Tab.Screen
           name="Alarm"
           component={AlarmScreen}
           options={{
@@ -69,7 +69,7 @@ function MainTab() {
               <Icon name="push-pin" size={24} color={color} />
             ),
           }}
-        />
+        />*/}
       </Tab.Navigator>
     </View>
   );

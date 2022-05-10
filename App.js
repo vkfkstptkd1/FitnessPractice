@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './screens/RootStack';
 import {UserContextProvider} from './contexts/UserContext';
 import GoogleFit, {Scopes} from 'react-native-google-fit';
-
+import { SearchContextProvider } from './contexts/SearchContext';
 function App() {
   useEffect(() => {
     const options = {
@@ -30,9 +30,13 @@ function App() {
   return (
     <UserContextProvider>
       <NavigationContainer>
+      <SearchContextProvider>
+
         <RootStack />
+        </SearchContextProvider>
       </NavigationContainer>
     </UserContextProvider>
+
   );
 }
 
