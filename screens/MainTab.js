@@ -1,14 +1,13 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import HealthScreen from './HealthScreen';
 import MapScreen from './MapScreen';
 import FeedScreen from './FeedScreen';
 import FindFriendScreen from './FindFriendScreen';
 import AlarmScreen from './AlarmScreen';
 import {useUserContext} from '../contexts/UserContext';
-import { SearchContextProvider } from '../contexts/SearchContext';
 
 const Tab = createMaterialBottomTabNavigator();
 

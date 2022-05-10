@@ -2,13 +2,19 @@ import React, {useState, useEffect, useContext} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import ProfileCard from '../components/ProfileCard';
 import SearchContext from '../contexts/SearchContext';
+import { useUserContext } from '../contexts/UserContext';
 import {getUserProfile} from '../lib/users';
 import SearchHeader from './SearchHeader';
 
 function FindFriendScreen() {
-  // const [inputText,setInputText]=useState('');
+  const {user,setUser}=useUserContext();
   const [users, setUsers] = useState(null);
   const {keyword} = useContext(SearchContext);
+  
+  const onSubmit = {
+      
+  }
+  
   useEffect(() => {
     //컴포넌트가 처음 마운트될 때(화면을 보여주는 시점에서)
     //포스트 목록 조회 후 'posts' 상태에 담기
@@ -19,7 +25,7 @@ function FindFriendScreen() {
         ? [] : users.filter((u) => 
             [u.displayName].some((text)=>text.includes(keyword)),
         );
- 
+
   return (
       <View style={styles.container}>
       <SearchHeader/>
@@ -39,6 +45,7 @@ const renderItem = ({item}) => (
     id={item.id}
     displayName={item.displayName}
     photoURL={item.photoURL}
+    onPress={onSubmit}
   />
 );
 const styles = StyleSheet.create({
