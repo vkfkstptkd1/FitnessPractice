@@ -15,6 +15,7 @@ import SplashScreen from 'react-native-splash-screen';
 function HealthScreen() {
   const {user, setUser} = useUserContext();
   const [info, setInfo] = useState();
+
   const userinfoready= info!== null;
   useEffect(() => {
     if(userinfoready){
@@ -27,11 +28,11 @@ function HealthScreen() {
         displayName: user.displayName,
         photoURL: user.photoURL,
         userinfo: res,
+        achieveinfo: user.achieveinfo,
       };
+      //console.log('a', user_);
       setUser(user_);
       createUser(user_);
-  
-      console.log(user_);
     });
   
   }, [userinfoready]);

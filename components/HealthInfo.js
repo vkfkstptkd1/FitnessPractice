@@ -2,8 +2,10 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import {LinearProgress} from 'react-native-elements';
+import {useUserContext} from '../contexts/UserContext';
 
 function HealthInfo(props) {
+  const {achieveinfo} = useUserContext();
   const [progress, setProgress] = React.useState(0);
   const navigation = useNavigation();
   const userinfo = {
@@ -19,26 +21,26 @@ function HealthInfo(props) {
     case 'dist':
       userinfo.title = '이동 거리';
       userinfo.color = '#167AEF';
-      userinfo.goal = 500;
+      userinfo.goal = achieveinfo.dist;
       userinfo.format = '미터';
 
       break;
     case 'step':
       userinfo.title = '일일 걸음수';
       userinfo.color = '#84F10B';
-      userinfo.goal = 3000;
+      userinfo.goal = achieveinfo.step;
       userinfo.format = '걸음';
       break;
     case 'cal':
       userinfo.title = '칼로리 소모량';
       userinfo.color = '#D60720';
-      userinfo.goal = 1500;
+      userinfo.goal = achieveinfo.kcal;
       userinfo.format = 'kcal';
       break;
     case 'duration':
       userinfo.title = '오늘 산책한 시간';
       userinfo.color = '#9028EB';
-      userinfo.goal = 60;
+      userinfo.goal = achieveinfo.Htime;
       userinfo.format = '분';
       break;
   }
