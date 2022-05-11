@@ -10,6 +10,8 @@ import SignInScreen from './SignInScreen';
 import WelcomeScreen from './WelcomeScreen';
 import UploadScreen from './UploadScreen';
 import SplashScreen from 'react-native-splash-screen';
+import RecommendMapScreen from './RecommendMapScreen';
+
 const Stack = createNativeStackNavigator();
 
 function RootStack() {
@@ -28,9 +30,7 @@ function RootStack() {
         return;
       }
       setUser(profile);
-      console.log(profile.achieveinfo);
       setAchieveInfo(profile.achieveinfo);
-      console.log('a', achieveinfo);
     });
   }, [setUser]);
 
@@ -61,6 +61,11 @@ function RootStack() {
             name="Track"
             component={TrackScreen}
             options={{headerTitle: ' 운동 경로'}}
+          />
+          <Stack.Screen
+            name="RecommendMap"
+            component={RecommendMapScreen}
+            options={{headerTitle: ' 운동 지도'}}
           />
         </>
       ) : (

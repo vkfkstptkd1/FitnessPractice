@@ -4,9 +4,16 @@ import Geolocation from 'react-native-geolocation-service';
 import {View} from 'react-native';
 import Mapstyle from './Mapstyle';
 import CameraButton from '../components/CameraButton';
+import {fetch} from '../lib/fit';
 
 function TrackScreen() {
   const [locations, setLocations] = useState([]);
+  const [step, setStep] = useState();
+
+  fetch().then(res => {
+    setStep(res);
+  });
+
   let watchId;
 
   useEffect(() => {
@@ -62,7 +69,12 @@ function TrackScreen() {
           ))}
         </MapView>
       )}
-      <CameraButton text={'Upload'} icon={'check'} locations={locations} />
+      <CameraButton
+        text={'Upload'}
+        icon={'check'}
+        locations={locations}
+        step={step}
+      />
     </View>
   );
 }
