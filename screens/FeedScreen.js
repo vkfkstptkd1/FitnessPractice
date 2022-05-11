@@ -23,7 +23,7 @@ function FeedScreen() {
             return;
         }
         const lastPost = posts[posts.length-1];
-        const olderPosts = await getOlderPosts(lastPost.id);
+        const olderPosts = await getOlderPosts(lastPost.id,followingid);
         if (olderPosts.length<PAGE_SIZE){
             setNoMorePost(true);
         }
@@ -37,7 +37,7 @@ function FeedScreen() {
         }
         const firstPost = posts[0];
         setRefreshing(true);
-        const newerPosts =await getNewerPosts(firstPost.id);
+        const newerPosts =await getNewerPosts(firstPost.id,followingid);
         setRefreshing(false);
         if (newerPosts.length===0){
             return;
@@ -59,7 +59,7 @@ function FeedScreen() {
                 }
                 refreshControl={
                     //onRefresh => 화면의 맨 위에서 아래로 끌어당겼을 때 호출
-                    //
+                    
                     <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
                 }
                 />
