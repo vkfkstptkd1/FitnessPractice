@@ -25,7 +25,6 @@ function HealthScreen() {
   if (!posts) {
     getRecommendPosts(userid).then(res => {
       setPosts(res[getRandom(0, res.length)]);
-      console.log('c', posts);
     });
   }
 
