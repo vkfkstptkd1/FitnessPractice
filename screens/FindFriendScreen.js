@@ -15,6 +15,7 @@ function FindFriendScreen() {
     //컴포넌트가 처음 마운트될 때(화면을 보여주는 시점에서)
     //포스트 목록 조회 후 'posts' 상태에 담기
     getUserProfile().then(setUsers);
+    console.log(setUsers);
   }, []);
   const filtered =
     keyword === ''

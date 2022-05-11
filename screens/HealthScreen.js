@@ -13,6 +13,7 @@ import {useUserContext} from '../contexts/UserContext';
 import {createUser} from '../lib/users';
 import SplashScreen from 'react-native-splash-screen';
 import {getRecommendPosts} from '../lib/posts';
+import RecentFriendScreen from './RecentFriendScreen';
 
 const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
@@ -92,10 +93,8 @@ function HealthScreen() {
         )}
       </View>
       <View>
-        <Text style={[styles.text, styles.maintitle]}> 운동중인 친구</Text>
-        <TouchableOpacity style={[styles.rec, {height: 80}]}></TouchableOpacity>
-        <TouchableOpacity style={[styles.rec, {height: 80}]}></TouchableOpacity>
-        <TouchableOpacity style={[styles.rec, {height: 80}]}></TouchableOpacity>
+        <Text style={[styles.text, styles.maintitle]}> 최근 운동한 친구 </Text>
+          <RecentFriendScreen/>
       </View>
     </ScrollView>
   );
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
 
   rec: {
     marginHorizontal: '5%',
-    height: 120,
+    //height: 120,
     backgroundColor: 'rgba(48,47,47,1)',
     marginVertical: 4,
     borderRadius: 16,

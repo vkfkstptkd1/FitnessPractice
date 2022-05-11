@@ -8,20 +8,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-function PostCard({
+function Recentprofilecard({
   user,
-  title,
-  photoURL,
-  description,
-  createdAt,
-  result,
   locations,
 }) {
   const navigation = useNavigation();
-  const date = useMemo(
-    () => (createdAt ? new Date(createdAt._seconds * 1000) : newDate()),
-    [createdAt],
-  );
+
   const onOpenProfile = () => {
     //사용자 프로필 화면 열기
   };
@@ -30,6 +22,7 @@ function PostCard({
   };
 
   return (
+    <TouchableOpacity style={styles.rec}>
     <View style={styles.block}>
       <View style={[styles.head, styles.paddingBlock]}>
         <Pressable style={styles.profile} onPress={onOpenProfile}>
@@ -46,47 +39,28 @@ function PostCard({
           />
           <Text style={styles.displayName}>{user.displayName}</Text>
         </Pressable>
-      </View>
-      <Image
-        source={{uri: photoURL}}
-        style={styles.image}
-        resizeMethod="resize"
-        resizeMode="cover"
-      />
-      <View style={styles.paddingBlock}>
-        {description &&(<Text style={styles.title}>{title}</Text>)}
-        {description && (
-        <Text style={styles.description}>{description}</Text>
-        )}
-        {description && (<Text style={styles.info}>걸음수 : {result} 걸음</Text>)}
-        {description && (<Text style={styles.info}>
-          소모 칼로리 : {parseInt((result * 1) / 30)} Kcal
-        </Text>)}
-        {description &&(<Text date={date} style={styles.date}>
-          {date.toLocaleString()}
-        </Text>)}
         <TouchableOpacity style={styles.map} onPress={onPress}>
-          <Text style={styles.button}>지도 보기 {'>'}</Text>
+          <Text style={styles.date}>지도 보기 {'>'}</Text>
         </TouchableOpacity>
-      </View>
+        </View>
     </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   block: {
     paddingTop: 16,
-    paddingBottom: 16,
+    paddingBottom: 8,
     borderColor: '#bdbdbd',
   },
   avatar: {
-    width: 32,
-    height: 32,
+    width: 40,
+    height: 40,
     borderRadius: 16,
   },
   paddingBlock: {
     paddingHorizontal: 16,
-    marginTop:8,
   },
   head: {
     flexDirection: 'row',
@@ -100,10 +74,10 @@ const styles = StyleSheet.create({
   },
   displayName: {
     color: 'white',
-    lineHeight: 16,
     fontSize: 16,
-    marginLeft: 8,
-    fontWeight: 'bold',
+    marginLeft: 10,
+    lineHeight: 16,
+
   },
   image: {
     backgroundColor: '#bdbdbd',
@@ -113,18 +87,18 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 24,
     lineHeight: 24,
     marginBottom: 8,
   },
   description: {
-    color: '#bdbdbd',
+    color: 'white',
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 8,
+    borderColor: '#bdbdbd',
   },
   date: {
-    marginTop:4,
     color: '#757575',
     fontSize: 12,
     lineHeight: 18,
@@ -142,6 +116,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  rec: {
+    marginHorizontal: '5%',
+    //height: 120,
+    //backgroundColor: 'rgba(48,47,47,1)',
+    marginVertical: 4,
+    borderRadius: 16,
+    backgroundColor:'rgba(48,47,47,1)'
+  },
 });
 
-export default PostCard;
+export default Recentprofilecard;
