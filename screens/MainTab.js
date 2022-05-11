@@ -45,20 +45,20 @@ function MainTab() {
           }}
         />
         <Tab.Screen
-          name="Search"
-          component={FindFriendScreen}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Icon name="person-search" size={24} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
           name="Feed"
           component={FeedScreen}
           options={{
             tabBarIcon: ({color}) => (
               <Icon name="wallpaper" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={FindFriendScreen}
+          options={{
+            tabBarIcon: ({color}) => (
+              <Icon name="person-search" size={24} color={color} />
             ),
           }}
         />
