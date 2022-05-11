@@ -17,7 +17,7 @@ import {
 } from '../lib/fit';
 import Dialog from 'react-native-dialog';
 import {useUserContext} from '../contexts/UserContext';
-import {createUser} from '../lib/users';
+import {createUser, getAllUser} from '../lib/users';
 
 const wd = Dimensions.get('window').width;
 
@@ -25,6 +25,12 @@ function GraphScreen({route}) {
   const {achieveinfo, user, setUser, setAchieveInfo} = useUserContext();
   const [weekinfo, setWeekinfo] = useState();
   const [visible, setVisible] = useState(false);
+  const [users, setUsers] = useState();
+
+  getAllUser().then(res => {
+    console.log(res[0].displayName);
+  });
+
   let text_ = 0;
   switch (route.params.userinfo.format) {
     case '걸음':
@@ -175,8 +181,7 @@ function GraphScreen({route}) {
       </View>
       <View style={styles.rateform}>
         <Text style={[styles.text, styles.titletext]}>친구들의 건강정보</Text>
-        <TouchableOpacity
-          style={[styles.rec, {width: wd - 32, height: 80}]}></TouchableOpacity>
+        <View style={[styles.rec, {width: wd - 32, height: 80}]}></View>
         <TouchableOpacity
           style={[styles.rec, {width: wd - 32, height: 80}]}></TouchableOpacity>
         <TouchableOpacity

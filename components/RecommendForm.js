@@ -6,21 +6,17 @@ import {useNavigation} from '@react-navigation/native';
 const wd = Dimensions.get('window').width;
 
 function RecommendForm(props) {
+  if (!props.posts) {
+    return <View> </View>;
+  }
+
   const navigation = useNavigation();
   const locations = props.posts.locations;
-  let URL;
-  if (props.posts.photoURL) {
-  } else {
-    URL = props.posts.photoURL;
-  }
+  const URL = props.posts.photoURL;
 
   const onPress = () => {
     navigation.push('RecommendMap', locations);
   };
-
-  if (!props.posts.photoURL) {
-    return <View></View>;
-  }
 
   return (
     <View style={styles.recommend}>
