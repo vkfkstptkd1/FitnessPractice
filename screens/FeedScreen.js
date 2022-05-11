@@ -1,16 +1,20 @@
 import React,{useEffect, useState} from 'react';
-import { View,ActivityIndicator, FlatList, RefreshControl, StyleSheet } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet } from 'react-native';
 import PostCard from '../components/PostCard';
+import { useUserContext } from '../contexts/UserContext';
 import { getPosts,PAGE_SIZE,getOlderPosts,getNewerPosts } from '../lib/posts';
 function FeedScreen() {
+    const {user,setUser}=useUserContext();
     const [posts,setPosts] = useState(null);
     // 마지막 포스트까지 조회했음을 명시하는 상태ㅐ
     const [noMorePost, setNoMorePost] = useState(false);
     const [refreshing,setRefreshing] = useState(false);
+    const followingid=user.followingid;
     useEffect(()=>{
         //컴포넌트가 처음 마운트될 때(화면을 보여주는 시점에서) 
         //포스트 목록 조회 후 'posts' 상태에 담기
-        getPosts().then(setPosts);
+        getPosts(followingid).then(setPosts);
+        console.log(followingid);
     }, []);
 
     //밑으로 스크롤 해서 더이상 나올게 없을 떄 호출
