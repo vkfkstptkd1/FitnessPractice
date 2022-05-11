@@ -6,8 +6,8 @@ import {useNavigation} from '@react-navigation/native';
 const wd = Dimensions.get('window').width;
 
 function RecommendForm(props) {
-  if (!props.posts) {
-    return <View> </View>;
+  if(!props.posts){
+    return <View></View>
   }
 
   const navigation = useNavigation();
