@@ -1,28 +1,49 @@
 import React from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {Dimensions} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const wd = Dimensions.get('window').width;
 
-function RecommendForm() {
-  // onPress 등 함수 and 운동데이터 추가 예정
+function RecommendForm(props) {
+  console.log('a', props.posts);
+
+  const navigation = useNavigation();
+  const URL = props.posts.photoURL;
+  const locations = props.posts.locations;
+
+  const onPress = () => {
+    navigation.push('RecommendMap', locations);
+  };
+
+  if (!props.posts) {
+    return <View></View>;
+  }
+
   return (
     <View style={styles.recommend}>
-      <TouchableOpacity style={styles.top_touch}>
+      <View
+        style={styles.top_touch}
+        onPress={() => navigation.push('Recommend')}>
         <Text style={styles.title}>추천 운동 스팟</Text>
         <View style={styles.topform}>
-          <View style={styles.image}></View>
+          <Image style={styles.image} source={{uri: URL}} />
           <View style={styles.textgroup}>
-            <Text style={styles.rec_title}>중앙 공원 산책</Text>
-            <Text style={styles.rec_text}>예상 걸음수 : 1400</Text>
-            <Text style={styles.rec_text}>소모칼로리 : 1521</Text>
-            <Text style={styles.rec_text}>위치 정보 : 약 1.4km</Text>
+            <Text style={styles.rec_title}>제목: {props.posts.title}</Text>
+            <Text style={styles.rec_text}>- 운동 정보 - </Text>
+            <Text style={styles.rec_text}>
+              예상 걸음수 : {props.posts.result} 걸음
+            </Text>
+            <Text style={styles.rec_text}>
+              소모칼로리 : {parseInt(parseInt(props.posts.result * 1) / 30)}{' '}
+              Kcal
+            </Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
       <View style={styles.line} />
-      <TouchableOpacity style={styles.bottom_touch}>
-        <Text style={styles.more}> 더보기 ...</Text>
+      <TouchableOpacity style={styles.bottom_touch} onPress={onPress}>
+        <Text style={styles.more}> 지도 보기</Text>
       </TouchableOpacity>
     </View>
   );

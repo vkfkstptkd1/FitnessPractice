@@ -1,4 +1,3 @@
-import {NavigationContainer} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   ActionSheetIOS,
@@ -8,7 +7,6 @@ import {
   Platform,
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import UploadModeModal from './UploadModeModal';
@@ -23,17 +21,18 @@ const imagePickerOption = {
 };
 
 function CameraButton(props) {
-  console.log(props.locations);
   const [modalVisible, setModalVisible] = useState(false);
   // const insets=useSafeAreaInsets(); // 하단 여백 크기 알게 함.
   const navigation = useNavigation(); //Uploadscreen에 res라우트 파라미터 전달.
   //const bottom = TABBAR_HEIGHT;
-
+  const step = props.step;
+  const locations = props.locations;
   const onPickImage = res => {
     if (res.didCancel || !res) {
       return;
     }
-    navigation.push(props.text, {res});
+
+    navigation.push(props.text, {res, step, locations});
   };
 
   const onLaunchCamera = () => {
@@ -58,10 +57,10 @@ function CameraButton(props) {
       buttonIndex => {
         if (buttonIndex === 0) {
           onLaunchCamera();
-          //console.log("카메라 촬영");
+          console.log('카메라 촬영');
         } else if (buttonIndex === 1) {
           onLaunchImageLibrary();
-          //console.log('사진 선택');
+          console.log('사진 선택');
         }
       },
     );

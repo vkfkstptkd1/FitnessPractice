@@ -12,9 +12,22 @@ import {fetchData} from '../lib/fit';
 import {useUserContext} from '../contexts/UserContext';
 import {createUser} from '../lib/users';
 import SplashScreen from 'react-native-splash-screen';
+import {getRecommendPosts} from '../lib/posts';
+
+const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
+
 function HealthScreen() {
   const {user, setUser} = useUserContext();
   const [info, setInfo] = useState();
+  const [posts, setPosts] = useState();
+
+  const userid = user.followingid[getRandom(0, user.followingid.length)];
+  if (!posts) {
+    getRecommendPosts(userid).then(res => {
+      setPosts(res[getRandom(0, res.length)]);
+      console.log('c', posts);
+    });
+  }
 
   const userinfoready = info !== null;
   useEffect(() => {
@@ -31,7 +44,7 @@ function HealthScreen() {
         achieveinfo: user.achieveinfo,
         followingid: user.followingid,
       };
-      console.log('a', user_);
+
       setUser(user_);
       createUser(user_);
     });
@@ -48,7 +61,7 @@ function HealthScreen() {
           {' '}
           오늘의 운동 추천
         </Text>
-        <RecommendForm />
+        <RecommendForm posts={posts} />
       </View>
       <View>
         <Text style={[styles.text, styles.maintitle]}> 건강 정보</Text>

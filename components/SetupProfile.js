@@ -61,7 +61,7 @@ function SetupProfile() {
         kcal: 150,
         Htime: 30,
       },
-      followingid: [],
+      followingid: [displayName],
     };
     createUser(user);
     setUser(user);
