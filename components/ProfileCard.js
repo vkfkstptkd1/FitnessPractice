@@ -7,10 +7,10 @@ const onOpenProfile = () => {
   //사용자 프로필 화면 열기
 };
 
-function ProfileCard({displayName, photoURL, followingid}) {
-  // const [following,followingset]=useState();
-  //const buttontitle = following ? '친구 맺기' : '친구입니다.';
-
+function ProfileCard({displayName, photoURL,followingid}) {  
+ // const [following,followingset]=useState();
+  const buttontitle = "친구 맺기"
+  
   const {user, setUser} = useUserContext();
   const istrue = value => {
     return value === displayName;
@@ -32,6 +32,7 @@ function ProfileCard({displayName, photoURL, followingid}) {
 
       createUser(user_);
       setUser(user_);
+      //buttontitle="우린 친구입니다."
     }
   };
 
@@ -56,7 +57,7 @@ function ProfileCard({displayName, photoURL, followingid}) {
       <View style={styles.button}>
         <CustomButton
           onPress={onSubmit}
-          title="친구맺기"
+          title={buttontitle}
           //hasMarginLeft
         />
       </View>

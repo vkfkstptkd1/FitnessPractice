@@ -8,6 +8,7 @@ import FeedScreen from './FeedScreen';
 import FindFriendScreen from './FindFriendScreen';
 import AlarmScreen from './AlarmScreen';
 import {useUserContext} from '../contexts/UserContext';
+import SettingScreen from './SettingScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -44,6 +45,15 @@ function MainTab() {
           }}
         />
         <Tab.Screen
+          name="Feed"
+          component={FeedScreen}
+          options={{
+            tabBarIcon: ({color}) => (
+              <Icon name="wallpaper" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Search"
           component={FindFriendScreen}
           options={{
@@ -53,23 +63,14 @@ function MainTab() {
           }}
         />
         <Tab.Screen
-          name="Feed"
-          component={FeedScreen}
+          name="Setting"
+          component={SettingScreen}
           options={{
             tabBarIcon: ({color}) => (
-              <Icon name="wallpaper" size={24} color={color} />
+              <Icon name="settings" size={24} color={color} />
             ),
           }}
         />
-        {/*<Tab.Screen
-          name="Alarm"
-          component={AlarmScreen}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Icon name="push-pin" size={24} color={color} />
-            ),
-          }}
-        />*/}
       </Tab.Navigator>
     </View>
   );

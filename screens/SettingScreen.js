@@ -1,32 +1,20 @@
-import React,{useEffect} from "react";
-import {useState} from 'react';
+import { useNavigation,useRoute } from "@react-navigation/native";
+import React, { useEffect } from "react";
 import {
-    ActivityIndicator,
-    FlatList,
     Image,
     StyleSheet,
     Text,
     View,
 } from 'react-native';
+import CustomButton from "../components/CustomButton";
 import { useUserContext } from "../contexts/UserContext";
-import {getPosts} from '../lib/posts';
-import {getUser} from '../lib/users';
+import {signOut} from '../lib/auth';
 
-function Profile({userId}){
-    const {user} =useUserContext();
-    const [posts, setPosts] = useState(null);
-
- //   useEffect(()=>{
- //       getUser().then(setUser);
-       // getPosts({userId}).then(setPosts);
- //   },[]);
-    if (!user){
-        return(
-            <ActivityIndicator style = {styles.spinner} size={32} color="#6200ee"/>
-        );
-    }
-    return(     
-    <View style={styles.userInfo}>
+function SettingScreen(){
+    const {user} = useUserContext();
+    return(
+        <View style={styles.block}>
+        <View style={styles.userInfo}>
         <Image 
             source={
                     user.photoURL
@@ -39,17 +27,25 @@ function Profile({userId}){
                     style={styles.avatar}
         />
         <Text style={styles.username}>{user.displayName}</Text>
-                </View>
-    );
+        </View>
+        <View style={styles.button}>
+        <CustomButton title="로그아웃"/>
+        </View>
+        </View>
+    )
 }
-
-const styles = StyleSheet.create({
+const styles=StyleSheet.create({
+    block:{
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,1)',
+        borderColor: '#000000',
+    },
+    button:{
+        margin:16
+    },
     spinner:{
         flex:1,
         justifyContent:'center',
-    },
-    block:{
-        flex:1,
     },
     userInfo:{
         paddingTop: 80,
@@ -67,4 +63,4 @@ const styles = StyleSheet.create({
         color:'#bdbdbd',
     },
 })
-export default Profile;
+export default SettingScreen;
