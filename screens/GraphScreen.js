@@ -5,10 +5,10 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import {Dimensions} from 'react-native';
 import Healthgraph from '../components/Healthgraph';
-import Buttongroup from '../components/Buttongroup';
 import {
   fetchWeekdist,
   fetchWeekduration,
@@ -22,28 +22,85 @@ import {createUser, getAllUser} from '../lib/users';
 const wd = Dimensions.get('window').width;
 
 function GraphScreen({route}) {
-  const {achieveinfo, user, setUser, setAchieveInfo} = useUserContext();
+  const {achieveinfo, user, setUser} = useUserContext();
   const [weekinfo, setWeekinfo] = useState();
   const [visible, setVisible] = useState(false);
   const [users, setUsers] = useState();
+  const [data, setData] = useState([]);
 
-  getAllUser().then(res => {
-    console.log(res[0].displayName);
-  });
+  const filter = item => {
+    return !(item.displayName == user.displayName);
+  };
 
+  if (!users) {
+    switch (route.params.userinfo.format) {
+      case '걸음':
+        getAllUser('userinfo.step', user.displayName).then(res => {
+          setUsers(res.filter(filter));
+          setData([
+            ...data,
+            res.filter(filter)[0].userinfo.step,
+            res.filter(filter)[1].userinfo.step,
+            res.filter(filter)[2].userinfo.step,
+          ]);
+        });
+        break;
+      case '미터':
+        text_ = achieveinfo.dist;
+        getAllUser('userinfo.dist', user.displayName).then(res => {
+          setUsers(res.filter(filter));
+          setData([
+            ...data,
+            res.filter(filter)[0].userinfo.dist,
+            res.filter(filter)[1].userinfo.dist,
+            res.filter(filter)[2].userinfo.dist,
+          ]);
+        });
+        break;
+      case 'kcal':
+        text_ = achieveinfo.kcal;
+        getAllUser('userinfo.kcal', user.displayName).then(res => {
+          setUsers(res.filter(filter));
+          setData([
+            ...data,
+            res.filter(filter)[0].userinfo.kcal,
+            res.filter(filter)[1].userinfo.kcal,
+            res.filter(filter)[2].userinfo.kcal,
+          ]);
+        });
+        break;
+      case '분':
+        text_ = achieveinfo.Htime;
+        getAllUser('userinfo.Htime', user.displayName).then(res => {
+          setUsers(res.filter(filter));
+          setData([
+            ...data,
+            res.filter(filter)[0].userinfo.Htime,
+            res.filter(filter)[1].userinfo.Htime,
+            res.filter(filter)[2].userinfo.Htime,
+          ]);
+        });
+        break;
+    }
+  }
+  console.log(data);
   let text_ = 0;
   switch (route.params.userinfo.format) {
     case '걸음':
       text_ = achieveinfo.step;
+
       break;
     case '미터':
       text_ = achieveinfo.dist;
+
       break;
     case 'kcal':
       text_ = achieveinfo.kcal;
+
       break;
     case '분':
       text_ = achieveinfo.Htime;
+
       break;
   }
 
@@ -175,18 +232,102 @@ function GraphScreen({route}) {
       </View>
       <View style={styles.statsform}>
         <Text style={[styles.text, styles.titletext]}>유저간 상위 통계</Text>
-        <View style={[styles.rec, {width: wd - 32, height: 180}]}>
-          <Buttongroup />
+        <View
+          style={[
+            styles.rec,
+            {width: wd - 32, height: 80, flexDirection: 'row'},
+          ]}>
+          <Image
+            source={
+              users[0].photoURL
+                ? {
+                    uri: users[0].photoURL,
+                  }
+                : require('../assets/user.png')
+            }
+            resizeMode="cover"
+            style={styles.avatar}
+          />
+          <View style={{width: 100}}>
+            <Text style={styles.datatext}>
+              {users[0].displayName}
+              {'   '}
+            </Text>
+          </View>
+
+          <Text
+            style={[
+              styles.datatext,
+              {fontSize: 30, marginTop: 15, color: 'gold'},
+            ]}>
+            {''}
+            {data[0]} {route.params.userinfo.format}
+          </Text>
+        </View>
+        <View
+          style={[
+            styles.rec,
+            {width: wd - 32, height: 80, flexDirection: 'row'},
+          ]}>
+          <Image
+            source={
+              users[1].photoURL
+                ? {
+                    uri: users[1].photoURL,
+                  }
+                : require('../assets/user.png')
+            }
+            resizeMode="cover"
+            style={styles.avatar}
+          />
+          <View style={{width: 100}}>
+            <Text style={styles.datatext}>
+              {users[1].displayName}
+              {'   '}
+            </Text>
+          </View>
+          <Text
+            style={[
+              styles.datatext,
+              {fontSize: 30, marginTop: 15, color: 'lavender'},
+            ]}>
+            {''}
+            {data[1]} {route.params.userinfo.format}
+          </Text>
+        </View>
+        <View
+          style={[
+            styles.rec,
+            {width: wd - 32, height: 80, flexDirection: 'row'},
+          ]}>
+          <Image
+            source={
+              users[2].photoURL
+                ? {
+                    uri: users[2].photoURL,
+                  }
+                : require('../assets/user.png')
+            }
+            resizeMode="cover"
+            style={styles.avatar}
+          />
+          <View style={{width: 100}}>
+            <Text style={styles.datatext}>
+              {users[2].displayName}
+              {'   '}
+            </Text>
+          </View>
+          <Text
+            style={[
+              styles.datatext,
+              {fontSize: 30, marginTop: 15, color: 'darkgoldenrod'},
+            ]}>
+            {''}
+            {data[2]} {route.params.userinfo.format}
+          </Text>
         </View>
       </View>
-      <View style={styles.rateform}>
-        <Text style={[styles.text, styles.titletext]}>친구들의 건강정보</Text>
-        <View style={[styles.rec, {width: wd - 32, height: 80}]}></View>
-        <TouchableOpacity
-          style={[styles.rec, {width: wd - 32, height: 80}]}></TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.rec, {width: wd - 32, height: 80}]}></TouchableOpacity>
-      </View>
+
       <View>
         <Dialog.Container visible={visible}>
           <Dialog.Title>목표량을 입력하세요!</Dialog.Title>
@@ -203,6 +344,21 @@ function GraphScreen({route}) {
 }
 
 const styles = StyleSheet.create({
+  avatar: {
+    marginTop: 11,
+    marginLeft: 11,
+    width: 58,
+    height: 58,
+    borderRadius: 35,
+  },
+  datatext: {
+    marginTop: 24,
+    marginLeft: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+    fontFamily: 'roboto-regular',
+  },
   text: {
     fontWeight: 'bold',
     color: 'white',

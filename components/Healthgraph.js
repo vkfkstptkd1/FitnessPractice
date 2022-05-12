@@ -114,6 +114,7 @@ function Healthgraph(route) {
         roundedTop
         roundedBottom
         hideRules
+        yAxisLabelWidth={38}
         xAxisThickness={0}
         yAxisThickness={0}
         yAxisTextStyle={{color: 'gray'}}

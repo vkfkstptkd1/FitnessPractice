@@ -38,7 +38,7 @@ function UploadScreen() {
 
   const onSubmit = useCallback(async () => {
     //post 작성 로직 구현
-    navigation.pop();
+    navigation.navigate('Post');
     const asset = res.assets[0];
     const extension = asset.fileName.split('.').pop();
     const reference = storage().ref(`/photo/${user.id}/${v4()}.${extension}`);

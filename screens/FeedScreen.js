@@ -4,6 +4,8 @@ import {
   FlatList,
   RefreshControl,
   StyleSheet,
+  View,
+  Text,
 } from 'react-native';
 import PostCard from '../components/PostCard';
 import {useUserContext} from '../contexts/UserContext';
@@ -19,7 +21,6 @@ function FeedScreen() {
     //컴포넌트가 처음 마운트될 때(화면을 보여주는 시점에서)
     //포스트 목록 조회 후 'posts' 상태에 담기
     getPosts(followingid).then(setPosts);
-    console.log(followingid);
   }, []);
 
   //밑으로 스크롤 해서 더이상 나올게 없을 떄 호출
@@ -34,6 +35,7 @@ function FeedScreen() {
     }
     setPosts(posts.concat(olderPosts));
   };
+  console.log(posts);
 
   //새로운 포스트 조회
   const onRefresh = async () => {
@@ -49,6 +51,22 @@ function FeedScreen() {
     }
     setPosts(newerPosts.concat(posts));
   };
+
+  if (!posts) {
+    return (
+      <View style={styles.box}>
+        <Text style={styles.text}>로딩중 !!</Text>
+      </View>
+    );
+  }
+
+  if (posts.length === 0) {
+    return (
+      <View style={styles.box}>
+        <Text style={styles.text}>피드가 없어요 !!</Text>
+      </View>
+    );
+  }
 
   return (
     <FlatList
@@ -93,6 +111,18 @@ const styles = StyleSheet.create({
   },
   spinner: {
     //height: 64,
+  },
+  text: {
+    fontFamily: 'roboto-regula',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 32,
+  },
+  box: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
