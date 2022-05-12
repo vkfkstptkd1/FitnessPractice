@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, Text, Image, Pressable, Alert} from 'react-native';
 import CustomButton from './CustomButton';
 import {useUserContext} from '../contexts/UserContext';
 import {createUser} from '../lib/users';
@@ -7,8 +7,8 @@ const onOpenProfile = () => {
   //사용자 프로필 화면 열기
 };
 
-function ProfileCard({displayName, photoURL,followingid}) {  
- // const [following,followingset]=useState();
+function ProfileCard({displayName, photoURL, followingid}) {
+  // const [following,followingset]=useState();
   //const buttontitle = following ? '친구 맺기' : '친구입니다.';
 
   const {user, setUser} = useUserContext();
@@ -16,11 +16,11 @@ function ProfileCard({displayName, photoURL,followingid}) {
     return value === displayName;
   };
 
-  const onSubmit = async() => {
+  const onSubmit = async () => {
     if (user.followingid.some(istrue)) {
-      console.log('이미 친구임 ');
+      alert('이미 친구입니다!');
     } else {
-       // followingset(true)
+      // followingset(true)
       const user_ = {
         id: user.id,
         displayName: user.displayName,
@@ -34,7 +34,6 @@ function ProfileCard({displayName, photoURL,followingid}) {
       setUser(user_);
     }
   };
-
 
   return (
     <View style={styles.container}>

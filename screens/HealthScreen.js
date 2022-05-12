@@ -52,7 +52,7 @@ function HealthScreen() {
   if (!info) {
     return <View></View>;
   }
-
+  console.log(info);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.form1}>
