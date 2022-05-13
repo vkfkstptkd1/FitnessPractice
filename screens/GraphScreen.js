@@ -83,7 +83,7 @@ function GraphScreen({route}) {
         break;
     }
   }
-  console.log(data);
+
   let text_ = 0;
   switch (route.params.userinfo.format) {
     case '걸음':
@@ -144,7 +144,6 @@ function GraphScreen({route}) {
       achieveinfo: achieveinfo,
       followingid: user.followingid,
     };
-    //console.log(user_);
 
     setUser(user_);
     createUser(user_);
@@ -176,6 +175,9 @@ function GraphScreen({route}) {
   }, []);
 
   if (!weekinfo) {
+    return <View style={styles.container}></View>;
+  }
+  if (!users) {
     return <View style={styles.container}></View>;
   }
   for (var i = 0; i < weekinfo.length; i++) {
